@@ -115,7 +115,8 @@ class LoginScreen extends StatelessWidget {
               // Login Button
               ElevatedButton(
                 onPressed: () {
-                  // Login functionality will be implemented later
+                  // Navigate to home screen
+                  Navigator.pushReplacementNamed(context, '/home');
                 },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: const Color(0xFF0080FF),
