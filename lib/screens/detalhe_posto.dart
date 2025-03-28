@@ -30,7 +30,7 @@ class DetalhePosto extends StatelessWidget {
                     ),
                     const SizedBox(width: 48), // Placeholder for spacing
                     IconButton(
-                      icon: const Icon(Icons.favorite, color: Colors.red),
+                      icon: const Icon(Icons.favorite, color: Colors.pink),
                       onPressed: () {
                         // Add your favorite functionality here
                       },
