@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'remedio_screen.dart'; // Import the RemedioScreen
 
 class DetalhePosto extends StatelessWidget {
   final String nome;
@@ -101,11 +102,14 @@ class DetalhePosto extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          // Button to search for medications
+          // Button to go to the medications screen
           Center(
             child: ElevatedButton(
               onPressed: () {
-                // Add your search functionality here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RemedioScreen()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0080FF),

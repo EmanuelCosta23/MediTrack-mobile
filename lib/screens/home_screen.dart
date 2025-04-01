@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/sidebar.dart';
 import 'detalhe_posto.dart';
+import 'remedio_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
