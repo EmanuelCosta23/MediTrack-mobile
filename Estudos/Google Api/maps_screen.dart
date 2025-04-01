@@ -8,7 +8,7 @@ import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class MapsScreen extends StatefulWidget {
-  const MapsScreen({Key? key}) : super(key: key);
+  const MapsScreen({super.key});
 
   @override
   State<MapsScreen> createState() => _MapsScreenState();

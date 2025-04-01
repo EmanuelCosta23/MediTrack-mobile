@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../widgets/sidebar.dart';
+import 'detalhe_posto.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +41,10 @@ class HomeScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  _buildPostoCard(
-                    'Posto de Saúde Central',
-                    'Rua Principal, 123',
-                  ),
-                  _buildPostoCard('UPA Jardim América', 'Av. das Flores, 456'),
-                  _buildPostoCard(
-                    'Centro de Saúde Familiar',
-                    'Rua dos Ipês, 789',
-                  ),
-                  _buildPostoCard('Hospital Municipal', 'Av. Saúde, 1010'),
+                  _buildPostoCard(context, 'Posto de Saúde Central', 'Rua Principal, 123'),
+                  _buildPostoCard(context, 'UPA Jardim América', 'Av. das Flores, 456'),
+                  _buildPostoCard(context, 'Centro de Saúde Familiar', 'Rua dos Ipês, 789'),
+                  _buildPostoCard(context, 'Hospital Municipal', 'Av. Saúde, 1010'),
                 ],
               ),
             ],
@@ -59,7 +54,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPostoCard(String nome, String endereco) {
+  Widget _buildPostoCard(BuildContext context, String nome, String endereco) {
     return Card(
       elevation: 4,
       child: Padding(
@@ -91,7 +86,14 @@ class HomeScreen extends StatelessWidget {
               child: SizedBox(
                 height: 28,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetalhePosto(nome: nome, endereco: endereco),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: const Color(0xFF0080FF),
