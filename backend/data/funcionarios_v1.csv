@@ -1,0 +1,3 @@
+id,nome_completo,cpf,email,senha,foto_perfil,data_nascimento,criado_em,tipo,posto_id,is_verificado
+2,Funcionario 1,22233344455,funcionario1@example.com,$2a$10$NGZJSFlCI89z3YQEq1P8VeCByYdPI9QLstHRVnU5bSXI2Mvsjm7KG,default.png,1990-02-15,2024-01-01 00:00:00,ROLE_FUNCIONARIO,d67cde4d-8ac1-46a6-9702-272ce622271e,true
+3,Funcionario 2,33344455566,funcionario2@example.com,$2a$10$NGZJSFlCI89z3YQEq1P8VeCByYdPI9QLstHRVnU5bSXI2Mvsjm7KG,default.png,1985-03-20,2024-01-01 00:00:00,ROLE_FUNCIONARIO,f34af25c-27fc-41dd-bcfb-ea173b523001,true

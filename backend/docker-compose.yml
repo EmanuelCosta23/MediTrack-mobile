@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+
+  meditrack_db:
+    image: postgres:15.4
+    container_name: meditrack_db
+    environment:
+      POSTGRES_DB: meditrack
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./data:/data
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+
+  meditrack_api:
+    depends_on:
+      meditrack_db:
+        condition: service_healthy
+    container_name: meditrack_api
+    ports:
+      - 8080:8080
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_URL: jdbc:postgresql://meditrack_db:5432/meditrack  # Docker DB URL
+      DB_USERNAME: postgres
+      DB_PASSWORD: 1234
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
