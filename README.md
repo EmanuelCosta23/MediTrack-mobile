@@ -1,4 +1,85 @@
-# MediTrack
+# MediTrack Mobile
+
+Aplicativo mobile para o sistema MediTrack de gestão de medicamentos.
+
+## Estrutura do Projeto
+
+O projeto está organizado em duas partes principais:
+
+1. **Frontend (Flutter)**: Aplicativo mobile localizado na pasta raiz.
+2. **Backend (Spring Boot)**: API REST localizada na pasta `backend/`.
+
+## Requisitos
+
+- Flutter 3.7.0 ou superior
+- Dart 3.0.0 ou superior
+- Java 17 ou superior
+- Maven 3.8.0 ou superior
+
+## Executando o Backend (API)
+
+Para executar o backend Spring Boot, siga os passos abaixo:
+
+```bash
+# Navegue para a pasta do backend
+cd backend
+
+# Execute o backend com Maven
+./mvnw spring-boot:run
+```
+
+Para usuários Windows:
+```bash
+cd backend
+mvnw.cmd spring-boot:run
+```
+
+A API estará disponível em `http://localhost:8080`.
+
+## Executando o Aplicativo Flutter
+
+Primeiro, certifique-se de que o backend está em execução. Em seguida, execute o aplicativo Flutter:
+
+```bash
+# Na pasta raiz do projeto
+flutter pub get
+flutter run
+```
+
+### Importante para emuladores Android
+
+Se você estiver executando o aplicativo em um emulador Android e o backend localmente, a URL da API deve usar o IP especial `10.0.2.2` que corresponde ao localhost do computador host (em vez de `localhost` ou `127.0.0.1`).
+
+Isso já está configurado no arquivo `lib/services/api_service.dart`:
+
+```dart
+static const String baseUrl = 'http://10.0.2.2:8080/api';
+```
+
+Se você executar o aplicativo em um dispositivo físico, precisará alterar este endereço para o IP da máquina onde o backend está rodando.
+
+## Integração Frontend-Backend
+
+A integração entre o aplicativo Flutter e a API Spring Boot é feita através de requisições HTTP. As principais integrações implementadas são:
+
+1. **Cadastro de Usuário**: `/api/usuario/cadastro` (POST)
+2. **Login**: `/api/usuario/login` (POST)
+
+As classes responsáveis pela integração estão em:
+- `lib/services/api_service.dart`: Serviço para chamadas à API
+
+## Funcionalidades Implementadas
+
+- Formatação de CPF em tempo real (apenas visual)
+- Formatação de data de nascimento em tempo real (apenas visual)
+- Integração com endpoint de cadastro de usuário
+
+## Próximos Passos
+
+- Implementar a autenticação completa (login/logout)
+- Salvar token JWT para manter a sessão
+- Implementar integração com endpoints de medicamentos
+- Implementar integração com endpoints de postos de saúde
 
 ## Sobre o Aplicativo
 
