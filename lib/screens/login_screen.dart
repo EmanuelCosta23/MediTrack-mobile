@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'forgot_password_screen.dart';
-import 'signup_screen.dart';
-import '../services/api_service.dart';
+import 'package:provider/provider.dart';
+import '../services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,7 +12,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
-  bool _isLoading = false;
 
   // Strings para mensagens de erro
   String? _emailError;
@@ -59,22 +57,16 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
-
     try {
-      // Chamar o serviço de API para fazer login
-      final resposta = await ApiService.login(
-        email: _emailController.text,
-        senha: _senhaController.text,
-      );
+      // Acessar o serviço de autenticação
+      final authService = Provider.of<AuthService>(context, listen: false);
+
+      // Realizar login
+      await authService.login(_emailController.text, _senhaController.text);
 
       if (!mounted) return;
 
-      // Armazenar o token e informações do usuário (isso seria feito com um gerenciador de estado ou SharedPreferences)
-      debugPrint('Login bem-sucedido: ${resposta.toString()}');
-
+      // Se chegou aqui, o login foi bem-sucedido
       // Navegar para a tela inicial
       Navigator.pushReplacementNamed(context, '/home');
     } catch (e) {
@@ -85,25 +77,17 @@ class _LoginScreenState extends State<LoginScreen> {
         _emailError = 'Usuário ou senha incorretos';
         _senhaError = 'Usuário ou senha incorretos';
       });
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Verificar se o serviço de autenticação está carregando
+    final authService = Provider.of<AuthService>(context);
+    final bool _isLoading = authService.isLoading;
+
     return Scaffold(
       backgroundColor: const Color(0xFF0080FF),
-      appBar: AppBar(
-        title: const Text('Login'),
-        backgroundColor: const Color(0xFF0080FF),
-        foregroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
@@ -116,6 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                const SizedBox(height: 40),
                 // App Title
                 const Text(
                   'MediTrack',
@@ -197,12 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Forgot Password Link (Left Aligned)
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordScreen(),
-                          ),
-                        );
+                        Navigator.pushNamed(context, '/forgot-password');
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
@@ -213,12 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Sign Up Link (Right Aligned)
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignUpScreen(),
-                          ),
-                        );
+                        Navigator.pushNamed(context, '/signup');
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
