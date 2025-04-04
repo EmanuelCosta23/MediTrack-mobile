@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import '../widgets/sidebar.dart';
 import 'detalhe_posto.dart';
 import 'remedio_screen.dart';
+import 'package:provider/provider.dart';
+import '../services/auth_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Autenticação mantida mas não exibida visualmente
+    final authService = Provider.of<AuthService>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('MediTrack'),
@@ -42,10 +47,26 @@ class HomeScreen extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  _buildPostoCard(context, 'Posto de Saúde Central', 'Rua Principal, 123'),
-                  _buildPostoCard(context, 'UPA Jardim América', 'Av. das Flores, 456'),
-                  _buildPostoCard(context, 'Centro de Saúde Familiar', 'Rua dos Ipês, 789'),
-                  _buildPostoCard(context, 'Hospital Municipal', 'Av. Saúde, 1010'),
+                  _buildPostoCard(
+                    context,
+                    'Posto de Saúde Central',
+                    'Rua Principal, 123',
+                  ),
+                  _buildPostoCard(
+                    context,
+                    'UPA Jardim América',
+                    'Av. das Flores, 456',
+                  ),
+                  _buildPostoCard(
+                    context,
+                    'Centro de Saúde Familiar',
+                    'Rua dos Ipês, 789',
+                  ),
+                  _buildPostoCard(
+                    context,
+                    'Hospital Municipal',
+                    'Av. Saúde, 1010',
+                  ),
                 ],
               ),
             ],
@@ -91,7 +112,9 @@ class HomeScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetalhePosto(nome: nome, endereco: endereco),
+                        builder:
+                            (context) =>
+                                DetalhePosto(nome: nome, endereco: endereco),
                       ),
                     );
                   },

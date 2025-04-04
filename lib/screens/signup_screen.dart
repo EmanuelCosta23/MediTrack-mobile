@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import '../services/api_service.dart';
+import '../services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -316,7 +318,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   onPressed: () {
                     // Fechar o diálogo e voltar para a tela de login
                     Navigator.of(context).pop();
-                    Navigator.of(context).pop(); // Volta para a tela de login
+                    Navigator.of(
+                      context,
+                    ).pop(); // Volta para login em vez de criar nova instância
                   },
                   child: const Text(
                     'OK',
@@ -355,6 +359,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         backgroundColor: const Color(0xFF0080FF),
         foregroundColor: Colors.white,
         elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -607,7 +618,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        // Voltar para a tela de login
+                        Navigator.of(context).pop();
                       },
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,

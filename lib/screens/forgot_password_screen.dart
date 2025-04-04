@@ -12,6 +12,13 @@ class ForgotPasswordScreen extends StatelessWidget {
         backgroundColor: const Color(0xFF0080FF),
         foregroundColor: Colors.white,
         elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: SafeArea(
         child: Container(
@@ -104,7 +111,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               // Back to Login Button
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).pop();
                 },
                 style: TextButton.styleFrom(foregroundColor: Colors.white),
                 child: const Text('Voltar para o Login'),

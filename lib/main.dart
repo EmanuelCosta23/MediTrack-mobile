@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/signup_screen.dart';
+import 'screens/forgot_password_screen.dart';
+import 'services/auth_service.dart';
+import 'services/route_guard.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializar o serviço de autenticação
+  final authService = AuthService();
+  await authService.initialize();
+
+  runApp(
+    ChangeNotifierProvider.value(value: authService, child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -11,6 +24,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Definir as rotas do aplicativo
+    final Map<String, WidgetBuilder> appRoutes = {
+      '/login': (context) => const LoginScreen(),
+      '/signup': (context) => const SignUpScreen(),
+      '/forgot-password': (context) => const ForgotPasswordScreen(),
+      '/home': (context) => const HomeScreen(),
+    };
+
     return MaterialApp(
       title: 'MediTrack',
       debugShowCheckedModeBanner: false,
@@ -30,11 +51,14 @@ class MyApp extends StatelessWidget {
           style: TextButton.styleFrom(foregroundColor: const Color(0xFF0080FF)),
         ),
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const LoginScreen(),
-        '/home': (context) => const HomeScreen(),
-      },
+      // Configurar o gerenciador de rotas para verificar autenticação
+      initialRoute:
+          Provider.of<AuthService>(context).isAuthenticated
+              ? '/home'
+              : '/login',
+      onGenerateRoute:
+          (settings) =>
+              RouteGuard.onGenerateRoute(settings, appRoutes, context),
     );
   }
 }
