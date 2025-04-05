@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/auth_service.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -73,7 +75,14 @@ class Sidebar extends StatelessWidget {
             child: ListTile(
               leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text('Logout', style: TextStyle(color: Colors.red)),
-              onTap: () {
+              onTap: () async {
+                // Fazer logout utilizando o AuthService
+                final authService = Provider.of<AuthService>(
+                  context,
+                  listen: false,
+                );
+                await authService.logout();
+
                 Navigator.pop(context);
                 Navigator.pushReplacementNamed(context, '/');
               },
