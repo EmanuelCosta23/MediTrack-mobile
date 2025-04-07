@@ -7,8 +7,17 @@ class RemedioScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Remédios'),
+        title: const Text(
+          'Remédios',
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: const Color(0xFF0080FF),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,43 +36,8 @@ class RemedioScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            // List of medications
-            Expanded(
-              child: ListView(
-                children: const [
-                  MedicationTile(name: 'Amoxicilina'),
-                  MedicationTile(name: 'Dipirona'),
-                  MedicationTile(name: 'Ibuprofeno'),
-                  MedicationTile(name: 'Paracetamol'),
-                  MedicationTile(name: 'Cetirizina'),
-                  MedicationTile(name: 'Omeprazol'),
-                  MedicationTile(name: 'Ranitidina'),
-                  MedicationTile(name: 'Losartana'),
-                ],
-              ),
-            ),
+            // You can add more content here if needed
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class MedicationTile extends StatelessWidget {
-  final String name;
-
-  const MedicationTile({super.key, required this.name});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        title: Text(name),
-        tileColor: const Color(0xFF0080FF),
-        textColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
         ),
       ),
     );
