@@ -1,7 +1,44 @@
 import 'package:flutter/material.dart';
 
-class RemedioScreen extends StatelessWidget {
+class RemedioScreen extends StatefulWidget {
   const RemedioScreen({super.key});
+
+  @override
+  State<RemedioScreen> createState() => _RemedioScreenState();
+}
+
+class _RemedioScreenState extends State<RemedioScreen> {
+  final List<String> medicamentos = [
+    'Amoxicilina',
+    'Dipirona',
+    'Ibuprofeno',
+    'Paracetamol',
+    'Cetirizina',
+    'Omeprazol',
+    'Ranitidina',
+    'Losartana',
+  ];
+
+  List<String> filteredMedicamentos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredMedicamentos = medicamentos; // Inicialmente exibe todos os medicamentos
+  }
+
+  void _filterMedicamentos(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        filteredMedicamentos = medicamentos;
+      } else {
+        filteredMedicamentos = medicamentos
+            .where((medicamento) =>
+                medicamento.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +53,7 @@ class RemedioScreen extends StatelessWidget {
           children: [
             // Search bar
             TextField(
+              onChanged: _filterMedicamentos,
               decoration: InputDecoration(
                 hintText: 'Buscar remédio',
                 filled: true,
@@ -27,19 +65,13 @@ class RemedioScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            // List of medications
+            // List of filtered medications
             Expanded(
-              child: ListView(
-                children: const [
-                  MedicationTile(name: 'Amoxicilina'),
-                  MedicationTile(name: 'Dipirona'),
-                  MedicationTile(name: 'Ibuprofeno'),
-                  MedicationTile(name: 'Paracetamol'),
-                  MedicationTile(name: 'Cetirizina'),
-                  MedicationTile(name: 'Omeprazol'),
-                  MedicationTile(name: 'Ranitidina'),
-                  MedicationTile(name: 'Losartana'),
-                ],
+              child: ListView.builder(
+                itemCount: filteredMedicamentos.length,
+                itemBuilder: (context, index) {
+                  return MedicationTile(name: filteredMedicamentos[index]);
+                },
               ),
             ),
           ],
@@ -68,4 +100,4 @@ class MedicationTile extends StatelessWidget {
       ),
     );
   }
-} 
+}
