@@ -4,6 +4,7 @@ import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/signup_screen.dart';
 import 'screens/forgot_password_screen.dart';
+import 'screens/vacina_screen.dart';
 import 'services/auth_service.dart';
 import 'services/route_guard.dart';
 
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       '/signup': (context) => const SignUpScreen(),
       '/forgot-password': (context) => const ForgotPasswordScreen(),
       '/home': (context) => const HomeScreen(),
+      '/vacinas': (context) => const VacinaScreen(),
     };
 
     return MaterialApp(
