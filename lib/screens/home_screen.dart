@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/sidebar.dart';
 import 'detalhe_posto.dart';
-import 'remedio_screen.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
 

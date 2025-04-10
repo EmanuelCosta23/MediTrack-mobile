@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     // Verificar se o serviço de autenticação está carregando
     final authService = Provider.of<AuthService>(context);
-    final bool _isLoading = authService.isLoading;
+    final bool isLoading = authService.isLoading;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0080FF),
@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 20),
 
                 // Login Button
-                _isLoading
+                isLoading
                     ? const Center(
                       child: CircularProgressIndicator(color: Colors.white),
                     )
