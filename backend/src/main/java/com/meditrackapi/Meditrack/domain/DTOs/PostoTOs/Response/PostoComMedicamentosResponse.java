@@ -6,11 +6,20 @@ import java.util.List;
 public class PostoComMedicamentosResponse {
     private String id;
     private String nome;
+    private String latitude;
+    private String longitude;
     private List<MedicamentoCard> medicamentos;
 
     public PostoComMedicamentosResponse(String id, String nome) {
         this.id = id;
         this.nome = nome;
+    }
+
+    public PostoComMedicamentosResponse(String id, String nome, String latitude, String longitude) {
+        this.id = id;
+        this.nome = nome;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public String getId() {
@@ -19,6 +28,14 @@ public class PostoComMedicamentosResponse {
 
     public String getNome() {
         return nome;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
     }
 
     public List<MedicamentoCard> getMedicamentos() {

@@ -8,4 +8,6 @@ public interface PostoDetalhadoResponse {
     String getNumeroPosto();
     String getLinhasOnibusPosto();
     String getTelefonePosto();
+    String getLatitudePosto();
+    String getLongitudePosto();
 }
