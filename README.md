@@ -141,7 +141,7 @@ MediTrack é uma aplicação móvel desenvolvida em Flutter que permite aos usu�
 - Flutter
 - Dart
 - Google Maps API
-- Geolocalização
+- Spring-boot
 
 ## Desenvolvimento
 
