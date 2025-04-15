@@ -1,0 +1,116 @@
+id;nome;bairro;rua;numero;linhas_onibus;telefone;latitude;longitude
+c0372982-1700-4b46-b5e6-34da959d733a;Posto de Saude Guiomar Arruda;Pirambu;Rua Gal Costa Matos;6;"16; 51; 55; 92; 101; 120; 130; 132; 711; 725";(85) 3452-6377;-3.71331065;-38.54555071338716
+78dd99cb-6983-432c-bcc1-c189ad668672;Posto de Saude 4 Varas;Barra do Ceara;Rua Profeta Isaias;456;"110; 140";(85) 3101-2594;-3.70154165;-38.57337644748881
+7e85ea26-e3fb-483d-94fc-8c9cc689d924;Posto de Saude Abel Pinto;Democrito Rocha;Travessa Goias;S/N;308;(85) 3452-5191;-3.7599222;-38.5663099
+a39863a0-ebd9-4034-bee6-c7fa65d8d029;Posto de Saude Abner Cavalcante Brasil;Bom Jardim;Rua Joana Batista;471;342;(85) 3452-2468;-3.80469595;-38.60869320481698
+84320007-a086-4ef5-bd13-fcaf9bbdbf36;Posto de Saude Acriusio Eufrasino de Pinho;Pedras;Rua Coletora Central;S/N;"620; 681";;-3.8777729;-38.5144588
+68e644fe-3e0f-4bf5-90a9-31fb0e084341;Posto de Saude Aida Santos e Silva;Vicente Pinzon;Rua Trajano de Medeiros;813;"77; 905; 913; 907";(85) 3433-2734;-3.7363599;-38.4619
+5c207c8b-2bf9-441f-a8cb-d633d7dc945c;Posto de Saude Anastacio Magalhaes;Rodolfo Teofilo;Rua Delmiro de Farias;1679;303;(85) 3496-8930;-3.7460689;-38.55260042315468
+622c3296-2f7d-4079-83d8-5b313960e67f;Posto de Saude Anisio Teixeira;Parque Itamaraty;Rua Guarany;355;"632; 662";(85) 3433-5285;-4.1724825;-38.465262
+b9f309a7-fefb-4efe-96ae-f8e125e8f168;Posto de Saude Argeu Herbster;Bom Jardim;Rua Geraldo Barbosa;1095;"333; 335; 336; 825";(85) 3498-9439;-3.79206855;-38.602214612114295
+ea6c8e01-96ca-4639-b9af-8a56132d7b5c;Posto de Saude Benedito Arthur de Carvalho;Luciano Cavalcante;Rua B;49;"66; 825; 835";(85) 3452-1880;-3.8449756;-38.5061219
+8febdd51-5205-4226-8555-383defe0d06a;Posto de Saude Carlos Ribeiro;Jacarecanga;Rua Jacinto Matos;944;102;(85) 3452-6373;-3.7193151;-38.54721419566487
+4a74fd80-452a-480a-8ba5-484a70eb55ef;Posto de Saude Cesar Cals de Oliveira;Alto da Balanca;Rua Capitao Aragao;555;"32; 69; 601; 625";(85) 3472-9069;-3.76459635;-38.51248318023738
+07d869c5-bf35-4c1f-962d-8f690f4b11d5;Posto de Saude de Messejana;Messejana;Rua Coronel Guilherme Alencar;S/N;"670; 725";(85) 3474-2637;-3.836293480559585;-38.49294028172381
+039956ad-9486-45c7-8d8e-46394d786a3d;Posto de Saude Dom Antonio de Almeida Lustosa;Granja Lisboa;Rua Cel Joao Correia;S/N;"333; 335; 357; 366";(85) 3452-1885;-3.791665979953879;-38.605035560150085
+7c158f56-5ab6-47cf-803d-70f921432f69;Posto de Saude Casemiro Filho;Barra do Ceara;Av Francisco Sa;6449;"35; 42; 80; 114; 115";(85) 3452-5877;-3.7091052;-38.58190167852855
+60a9b0f2-c6ab-429a-946c-f197b476b96e;Posto de Saude Cesar Cals de Oliveira Filho;Pici;Rua Pernambuco;3172;"243; 310";(85) 3233-4055;-3.748045;-38.58078367776369
+4038d3ce-1a39-4dab-bb71-3dd7ccd23fcf;Posto de Saude Doutor Henrique Mota Neto;Siqueira;Rua Serena;242;"326; 393";;-3.802569;-38.6198148
+eacaff02-6ed2-4903-b00d-8c218fc49e64;Posto de Saude Dom Aloisio Lorscheider;Itaperi;Rua Betel;1895;344;(85) 3131-1945;-3.7951753;-38.55442109518502
+9a72adc9-07e9-4946-8128-e9305505ef30;Posto de Saude Clodoaldo Pinto;Padre Andrade;Rua Banvarth Bezerra;100;206;(85) 3433-9745;-3.7307479;-38.5809714
+406459ae-577f-462c-8e2d-7511941d4592;Posto de Saude Cicera Carla Almeida Joao XXIII;Joao XXIII;Rua Demosel;43;"318; 348";(85) 3488-3258;;
+893ecb02-eba0-4c3b-9e13-70ff6ff62512;Posto de Saude Dr Alarico Leite;Passare;Av dos Paroaras;301;391, 633, 306, 391;(85) 3452-9363;-3.81190985;-38.53768605305595
+c0c4b250-14c3-424a-bc7d-741cf3e9de14;Posto de Saude Dr Antonio Ciriaco de Holanda Neto;Parangaba;Rua Gomes Brasil;555;36, 40, 411, 421,304, 308, 318, 348, 394;;-3.7712603;-38.57054141369571
+60371e56-8d8e-4a6d-8829-8b711ebc1bb2;Posto de Saude Dr Celio Brasil Girao;Cais do Porto;Rua Professor Henrique Firmeza;82;77, 752, 906, 913;(85) 3433-2739;-3.7180799;-38.464946836757946
+6df12047-e84e-4154-9f71-b903632a7524;Posto de Saude Dr Edmar Fujita;Dias Macedo;Av Alberto Craveiro;4211;312, 603, 605, 606, 633, 666, 680;(85) 3452-5130;-3.7802177;-38.5154097
+4186b033-98b7-42ee-aed7-c7bb31fea3e4;Posto de Saude Dr Eduardo Regis Juca;Mondubim;Av Pref Evandro Ayres de Moura;618;466;(85) 3105-3057;;
+05705501-791b-4e30-be42-c2ff03a326af;Posto de Saude Dr Francisco Monteiro Chico Passeata;Dende;Av dos Eucaliptos;S/N;344;;-3.8017568;-38.5560746
+b3ed152b-ddaf-46ab-958a-310b8e0a1d78;Posto de Saude Dr Gothardo Peixoto F Lima;Damas;Rua Irma Bazet;153;29, 30, 38, 48, 65, 70, 77, 314, 331, 360,374,390;(85) 3433-5084;-3.7609073;-38.55558643602828
+318aecff-2ac2-463a-b50b-d3914ccf0ac8;Posto de Saude Dr Joao Barbosa Pires de Paula Pessoa;Jardim Jatoba;Rua Rubi;S/N;383;(85) 3498-4745;-3.8051741;-38.6204973
+f36791b5-d80b-4cc6-b25d-37f1e1431d9b;Posto de Saude Dr Joao Elisio Holanda;Aracape;Rua Juvencio Sales;S/N;325, 372, 375, 378, 380;(85) 3105-3057;-3.8332229;-38.5920732
+821b3b4b-767e-4a3e-a31e-2f33501f5c41;Posto de Saude Dr Jurandir Picanco;Granja Portugal;Rua Duas Nacoes;S/N;36, 83, 385;(85) 3452-2480;-3.779659876069245;-38.602798045375685
+b8e80aad-659a-4d5e-9dd4-d2f0ef477c1d;Posto de Saude Dr Luis Costa;Benfica;Rua Marechal Deodoro;1501;14, 401, 404, 411, 421;(85) 3131-7677;-3.74877385;-38.53878334891888
+eae847d1-cf27-4266-a83f-a5d4c2b8202d;Posto de Saude Dr Marcus Aurelio Lima Verde;Santa Filomena;Rua Iracema;1100;63, 637, 648, 667, 670;(85) 3472-8490;-3.8424699;-38.526391
+84ad9234-4dcd-47ab-bf4e-476cfdf0260d;Posto de Saude Dr Ocelo Pinheiro;Itaoca;Rua Elcias Lopes;517;27, 36, 44, 60, 73, 78, 80, 244, 307, 401, 411, 421, 823;(85) 3131-7334;-3.7710146;-38.55550220149078
+5e9cf1f1-3ca2-45ca-aa90-cae519b892bb;Posto de Saude Dr Otoni Cardoso do Vale;Paupina;Rua Jose Teixeira Costa;643;619;(85) 3274-8591;-3.8474784;-38.48070330299456
+aee57243-5bc5-41e0-8500-4903c3562d75;Posto de Saude Dr Pompeu Vasconcelos;Barroso;Rua Cinco;S/N;645;(85) 3269-8142;-3.8276788;-38.5143933
+ace4202a-e6b3-4f7a-9769-8acbaba416c2;Posto de Saude Dr Pontes Neto;Conjunto Ceara;Rua 541;122-136;322;(85) 3259-5414;-3.7683684;-38.6109388
+c179e87a-7cf3-47e4-8b4d-5e53f0693759;Posto de Saude Dr Roberto da Silva Bruno;Fatima;Av Borges de Melo;990;31, 36, 44, 45, 49, 65, 73, 78, 85, 685, 823;(85) 3227-9177;-3.7610057;-38.5240061
+549741af-e702-4183-b406-32824c31b0ea;Posto de Saude Dr Zenirton Pereira da Silva;Barra do Ceara;RuaJose Roberto Sales;475;110, 120, 130, 140;(85) 3493-7656;;
+5460a75a-1ae4-41f4-9087-0bf244546104;Posto de Saude Edilmar Noroes;Parque Dois Irmaos;Rua H;351;339, 405;(85) 3493-7656;-3.8348389;-38.4854172
+3ab63e17-d66b-4f6d-95d5-01d57011204b;Posto de Saude Eliezer Studart;Autran Nunes;Rua Tomaz Cavalcante;545;"36; 43; 45; 76; 81; 218; 356; 709; 754; 316";(85) 3488-3259;-3.7549241;-38.59568357655398
+357fa439-3464-438b-aea2-8ccac3c72459;Posto de Saude Evandro Ayres de Moura;Conjunto Palmeiras;Av Castelo de Castro;2842;"629; 660; 712";(85) 3269-7477;-3.8443764;-38.5215127
+5f0f5476-4828-450c-b4eb-bb25dc1dc45e;Posto de Saude Fausto Freire;Parque Santa Maria;Av Isabel Bezerra;416;"621; 647";;-3.8553742;-38.4984842
+6aedec81-e1a6-433d-908c-27f6cc9ad6a0;Posto de Saude Fernando Cesar Vieira Diogenes;Granja Portugal;Rua Teodoro de Castro;S/N;322;(85) 3488-3240/3290-4365;-3.7797678;-38.6050194
+9b5ebe29-a80c-44d5-b287-1a0ea1585e88;Posto de Saude Fernando Facanha;Jardim Iracema;Rua Rio Tocantins;S/N;"57; 111";(85) 3452-6660;-3.724211;-38.5812714
+251e18ed-0c76-4885-9f03-fa9530ab46d3;Posto de Saude Floresta;Alvaro Weyne;Rua Ten Jose Barreira;251;"57; 60; 112; 122";(85) 3433-6657;-3.7171664;-38.5715846
+be0efdf0-cd3f-4729-8d7a-5e5d53b86b7f;Posto de Saude Flavio Marcilio;Mucuripe;Av da Abolicao;4180;"51; 55; 71; 77; 78; 99; 711; 752; 906";(85) 3433-2737;-3.72340785;-38.48038664872287
+dfc1d414-244b-4a27-976b-f971fd9b3996;Posto de Saude Francisco da Silva;Barra do Ceara;Av Castelo Branco Leste Oeste;4707;"16; 52; 56; 92; 101; 132; 706; 711; 754";(85) 3452-6644;;
+79dcf63d-42b3-4edb-851b-3eb6367ea162;Posto de Saude Francisco Melo Jaborandi;Jangurussu;Rua Trezentos e Quinze;80;646;(85) 3256-8791;-3.8358978;-38.52428295054585
+9c3428ef-7efd-4d57-9e7a-60b42f765410;Posto de Saude Francisco Pereira de Freitas;Bela Vista;Rua Jose Freitas da Silva;S/N;"304; 305";(85) 3433-2890;-3.7480302;-38.5666356
+befe5fb0-02a6-41e8-9a67-9ac836405eab;Posto de Saude Franscisco Edmilson Pinheiro;Granja Lisboa;Av H;2191;327, 710, 43, 385, 36;(85) 3452-2421;-3.77695925;-38.61780533803636
+7a6ee409-7af7-481c-bace-010260b82c38;Posto de Saude Galba de Aragao;Lagoa Redonda;Av Professor Jose Arthur de Carvalho;1351;626, 634, 644, 657, 616, 617, 627, 656;(85) 3105-1602;;
+9ca54b36-af17-4830-bd81-440be6090e54;Posto de Saude George Benevides de Medeiros;Quintino Cunha;Rua Tenente Lira;S/N;217;(85) 3105-1086;-3.7369675;-38.6008392
+2d930798-e51c-4c3e-824d-031d731f4e5b;Posto de Saude Gilmario Mourao Teixeira;Pici;Rua Pernambuco;1674;243, 310;(85) 3488-3250;-3.756416;-38.5729237
+94eec58e-15d6-463a-b422-726d315e9a93;Posto de Saude Gov Virgilio Tavora;Cristo Redentor;Av Mons Helio Campos;S/N;102, 110, 120, 130, 140;(85) 3286-2219;-3.7060977;-38.5639398
+18f08568-f9f5-40ff-8982-2688721fbe5c;Posto de Saude Graciliano Muniz;Conjunto Esperanca;Rua 106;345;379, 330, 131;(85) 3433-4913;-3.8139186;-38.59108477404445
+9687a3fd-7711-41f9-af04-84ba3ad743f6;Posto de Saude Guarany Mont alverne;Granja Lisboa;Rua Geraldo Barbosa;3230;333, 325, 343;(85) 3452-2496;-3.788425225172405;-38.61270437122005
+940dddf2-cd23-497d-bcf7-3c5c60c26a5c;Posto de Saude Gutemberg Braun;Vila Peri;Rua Monsenhor Agostinho;505-443;319;(85) 3452-5199;-3.7877788956819622;-38.58230542832186
+c36ad473-0578-4d47-a3bf-c1bc4d716055;Posto de Saude Herminia Leitao;Quintino Cunha;Rua General Joao Couto;470;58, 211;(85) 3433-9741;-3.73129215;-38.58815776236379
+56bce226-a545-4c28-94e6-ab9bc8da2b44;Posto de Saude Franscisco Edmilson Pinheiro;Granja Lisboa;Av H;2191;327, 710, 43, 385, 36;(85) 3452-2421;-3.77695925;-38.61780533803636
+0d420416-e57c-43e3-9a47-a547647f536e;Posto de Saude Galba de Araujo;Lagoa Redonda;Av Professor Jose Arthur de Carvalho;1351;626, 634, 644, 657, 616, 617, 627, 656;(85) 3105-1602;;
+2438b690-d2fc-4c11-9f86-5ce405e4ea59;Posto de Saude George Benevides de Medeiros;Quintino Cunha;Rua Tenente Lira;S/N;217;(85) 3105-1086;-3.7369675;-38.6008392
+331e681e-3bb4-4027-86bf-f4362421700b;Posto de Saude Gilmario Mourao Teixeira;Pici;Rua Pernambuco;1674;243, 310;(85) 3488-3250;-3.756416;-38.5729237
+6105feb6-2f58-455a-be11-2ca747be085b;Posto de Saude Gov Virgilio Tavora;Cristo Redentor;Av Mons Helio Campos;102;110,120,130,140;(85) 3286-2219;-3.7060977;-38.5639398
+d67cde4d-8ac1-46a6-9702-272ce622271e;Posto de Saude Graciliano Muniz;Conjunto Esperanca;Rua 106;345;379, 330, 131;(85) 3433-4913;-3.8139186;-38.59108477404445
+6bf6e925-132b-440a-8674-c4ad5fb632b9;Posto de Saude Guarany Mont alverne;Granja Lisboa;Rua Geraldo Barbosa;3230;333, 325, 823;(85) 3452-2496;;
+2f526be4-9392-45eb-b001-bcc3ad701c6e;Posto de Saude Gutemberg Braun;Vila Peri;Rua Monsenhor Agostinho;505-443;319;(85) 3452-5199;-3.7877788956819622;-38.58230542832186
+12d4086f-7d65-47ab-ab32-642145d1b225;Posto de Saude Herminia Leitao;Quintino Cunha;Rua General Joao couto;470;58, 211;(85) 3433-9741;-3.73129215;-38.58815776236379
+53ed489b-5ce1-41d9-baf7-1d8942c9fbe1;Posto de Saude Humberto Bezerra;Antonio Bezerra;Rua Hugo Vitor;51;216;(85) 3212-1920;;
+c296a085-57b6-48a1-a8db-23b6a3330084;Posto de Saude Helio Goes Ferreira;Sapiranga;Rua Crisanto Moreira da Rocha;453;625, 640, 820;(85) 3452-5714;-3.806009365815639;-38.482432442233545
+212761fd-e4e9-4a92-b566-8c85f0942b70;Posto de Saude Irma Hercilia Aragao;Sao Joao do Tauape;Rua Frei Vidal;1821;602;(85) 3452-1883;-3.75586615;-38.51757098332608
+a459fa10-601f-4539-99d7-059059f538f6;Posto de Saude Ivana de Sousa Paes;Presidente Kennedy;Rua Virgilio Brigido;S/N;31, 80, 753;(85) 3238-1851;-3.7252773;-38.5695283
+8c77ba67-132f-4e96-9917-bea8b50858bb;Posto de Saude Jangurussu;Passare;Rua Estrada do Itaperi;146;50, 52, 56, 82, 84, 315, 699;(85) 3452-2474;-3.8276301;-38.53042595516276
+6b1876ae-9aa9-4e99-9b38-d30b211dacac;Posto de Saude Janival de Almeida Vieira;Passare;Rua Coelho Garcia;25;620, 660, 666;(85) 3105-3095;-3.81244385;-38.51961043460854
+0142ba21-2fac-46e0-9408-7524ad275243;Posto de Saude Jose Galba de Araujo;Genibau;Av Sen Fernandes Tavora;3161;316, 356;(85) 3452-6753;;
+ee48381d-b369-4007-86f5-43b42280b19b;Posto de Saude Jose Paracampos;Mondubim;Rua Alfredo Mamede;250;50, 51, 55, 82, 84, 384;(85) 3433-4927;-3.8077429;-38.58051394416015
+f34af25c-27fc-41dd-bcfb-ea173b523001;Posto de Saude Jose Walter;Prefeito Jose Walter;Av Jose de Araujo Lima;1631;317, 606;(85) 3433-4819;;
+52bc081f-664a-447e-93f8-81b847e23bd0;Posto de Saude Joao Machado dos Santos;Planalto Ayrton Senna;Travessa Joao Henrique;82;317, 406, 456;;-3.8395669;-38.57572628138381
+8cf527a1-3be8-4777-82cf-fb8c531601ee;Posto de Saude Joao Madeiros de Lima;Vila Velha;Av Dom Aloisio Lorscheider;S/N;58, 114, 212;(85) 3452-6646;-3.7138438;-38.5966845
+84f3473b-29b9-4409-8629-cf7c35f0324c;Posto de Saude Lineu Juca;Barra do Ceara;Rua Vila Velha II;101;16, 52, 56, 70, 92, 106, 702, 706, 711;(85) 3452-5888;-3.7015117;-38.5872983
+32e94452-2942-4dc2-a031-a9f05b0ef7d8;Posto de Saude Luciano Torres de Melo;Manoel Satiro;Rua Delta;365;362;(85) 3433-4922;-3.791504;-38.5768006516509
+6490c58c-84a1-4b4c-a6cb-ff876334307d;Posto de Saude Luis Albuquerque Mendes;Serrinha;Rua Benjamin Franklin;735;359.405;(85) 3131-7335;-3.7784428;-38.548835957023634
+0b9a6579-afa5-45d4-9919-ab67b297d0b2;Posto de Saude Luis Franklin Pereira;Coacu;Rua Alexandre Vieira;S/N;618;(85) 3433-5969;-3.837314;-38.4845548
+72c875f2-6dff-4b0b-95b1-21d120639675;Posto de Saude Luiza Tavora;Mondubim;Travessa Sao jose;940;340,315, 399, 406, 407, 456, 466, 728;(85) 3433-4916;-3.81413925;-38.55645560987056
+5f90a66f-81ee-4638-bf8e-01f13d63bbe5;Posto de Saude Licinio Nunes de Miranda;Quintino Cunha;Rua VI;212-222;211;(85) 3237-8574;-3.7276397;-38.6009768
+7fcacc7c-dab8-41c2-861d-b7cecffd12d9;Posto de Saude Maciel de Brito;Conjunto Ceara;Rua 602;2;385, 754;(85) 3452-2486 / 3452-2477;-3.7688352;-38.6045312
+bcede7b0-c1a5-4066-a7dc-c70828803535;Posto de Saude Manoel Carlos Gouveia;Jardim das Oliveiras;Av Des Faustino de Albuquerque;486;21;(85) 3452-6092;;
+26a101a8-a8e5-4f55-b481-81658c56ecb0;Posto de Saude Maria Aparecida Lima de Almeida;Vila Velha;Av K;915;212;(85) 3433-9514;-3.7139009;-38.5984902
+28db290e-46ac-4057-8ac1-b423176783e0;Posto de Saude Maria Cirino Souza;Moura Brasil;Rua da Saudade;364;16,52, 56, 71, 92, 106, 120, 130, 132, 711, 752;(85) 3212-1325;-3.7191053;-38.53500363320197
+60d34d6a-0653-4b14-bd8c-97beecab8b59;Posto de Saude Paulo Marcelo Martins Rodrigues;Centro;Rua Vinte e Cinco de Marco;607;73, 77, 78, 901;(85) 3105-1455;-3.72940605;-38.522230064225525
+25a1bb40-5a44-4b02-be70-1914af9ea601;Posto de Saude Pedro Celestino;Maraponga;Rua Gastao Justa;215;313, 353;(85) 3433-4915;-3.80604105;-38.56946999734655
+8792ddde-6a6b-41b7-8c50-82688c431d6e;Posto de SaudePedro Sampaio;Conjunto Palmeiras;Rua Iracema;1516;629, 660, 712;(85) 3105-1767;-3.8445226;-38.5279287710896
+ac61f215-2490-49bd-a2a0-837026d44243;Posto de Saude Pio XII;Sao joao do Tauape;Rua Belisario Tavora;S/N;602;(85) 3452-1896;-3.7589407;-38.5056133
+8a6b47ac-ee4e-4839-8498-13f7bb0cc78d;Posto de Saude Posto Miriam Porto;Dionisio Torres;Rua Coronel Juca;1636;69, 74, 75, 222, 703, 816, 855;(85) 3452-2315;-3.74601425;-38.49416376420733
+06926afc-f091-40db-a5d7-50e9b8a61f7b;Posto de Saude Prof Jose Reboucas Macambira;Jardim Guanabara;Rua Creuza Rocha;S/N;58, 212, 213, 115;(85) 3105-1060;-3.7212353;-38.5921318
+7bd790cd-65f3-4184-ae09-87d502561f4b;Posto de Saude Prof Jose Sobreira de Amorim;Henrique Jorge;Rua Desembargador Luis Paulino;109;24, 34, 43, 45, 72, 91, 172, 314, 356, 709, 754;(85) 3488-1271;-3.76476125;-38.57968244186087
+0d04d7e7-2573-4061-9f44-82303830fea3;Posto de Saude Prof Joao Hipolito de Azevedo;Dias Macedo;Rua Tres;88;312;(85) 3105-3200;-3.8264998;-38.514857
+82c0ab29-0bad-48b0-8f2e-687feaae32cc;Posto de Saude Prof Luiz Recamonde Capelo;Bonsucesso;Rua Maria Quintela;935;52, 56, 82, 97;(85) 3488-3252;-3.77583815;-38.58851893210374
+3b9f31c6-4710-4d1e-8415-91691d7443fe;Posto de Saude Prof Monteiro de Moraes;Sapiranga Coite;Evilasio Almeida Miranda;391;610, 611, 625, 820;(85) 3452-6091;-3.8009577;-38.4666852
+9f29166a-d04a-49f6-af3b-ded936bdebc6;Posto de Saude Professor Jose Valdevino Carvalho;Itaoca;Rua Guara;S/N;27, 36, 44, 60, 73, 78, 304, 247, 307, 359, 401, 411, 421, 823;(85) 3131-7338;-3.7756076;-38.5586168
+b3a64a7b-3785-410d-8088-3ed66b65951f;Posto de Saude Regina Maria da Silva Severino;Canindezinho;Rua Itatiaia;889;382;(85) 3433-5289;-3.8070921;-38.60086471747596
+76121ac1-1cd5-4a37-ab91-21dcb3cbb7e6;Posto de Saude Rigoberto Romero;Cidade 2000;Av das Graviolas;195;753, 831, 832, 833, 860;(85) 3433-2746;-3.7519081;-38.473382111644526
+a7053e7b-1c15-4df7-a0ae-fb811ff7e3cf;Posto de Saude Ronaldo de Albuquerque Ribeiro;Conjunto Ceara Genibau;Av I;423-463;15, 385;(85) 3259-1741;-3.769531612199036;-38.59734241149526
+81775791-0811-4261-be95-ea080c0caf32;Posto de Saude Sandra Maria Faustino;Vicente Pinzon;Rua Josias Paulo de Sousa;167;804, 905;(85) 3452-5403;-3.7273838;-38.4691347
+ea43b277-9edc-4a7e-acd5-2d9c9a4eab2a;Posto de Saude Santa Lidunia;Parque Araxa;Rua Prof Joao Bosco;213;75, 389, 703;(85) 3433-2569;-3.73967095;-38.54544502701343
+8ab77add-e12b-4df8-ac3f-d5ef82468609;Posto de Saude Senador Fernandes Tavora;Henrique Jorge;Rua Maceio;1354;351;(85) 3488-3254;-3.7636609;-38.59076313032344
+a6384c49-4ee6-4434-81b6-d5b37cdcb1bc;Posto de Saude Siqueira;Siqueira;Av Eng Luiz Montenegro;485;397;(85) 3105-3342;;
+698a98f5-6be0-49af-bc05-ada08c9894a8;Posto de Saude Sitio Sao Joao;Jangurussu;Rua Verde Cinco;71;660, 712, 670;(85) 3105-1765;-3.84744655;-38.516603772112624
+abe65b39-1e3b-43a6-a208-02e83700afc5;Posto de Saude Teresinha Parente;Lagoa Redonda;Rua Nelson Coelho;209;627, 697;(85) 3488-3288;-3.827182;-38.463940548700606
+6f10b5d9-d6c2-4c4a-a6c7-ea87cee97481;Posto de Saude Turbay Barreira;Vila Uniao;Rua Goncalo Souto;420;502;(85) 3272-4055;-3.76857115;-38.53086505031436
+74734eff-5e04-4c7b-969a-305841ee6f6b;Posto de Saude Vicentina Campos;Parque Dois Irmaos;Rua B;145;405;(85) 3493-4732;-3.7984329;-38.54753645214701
+87890a58-2643-4a8d-9a93-c83d9f29342a;Posto de Saude Waldemar Alcantara;Joquei Clube;Rua Silveira Filho;903;323;(85) 3488-3253;-3.77405515;-38.57780506021929
+ae7c0a3a-ff0b-4831-9650-395aaea4431e;Posto de Saude Waldo Pessoa de Almeida;Barroso;Rua Cap Hugo Bezerra;75;75, 82, 107, 274, 638, 650, 665, 1815;(85) 3472-4674;-3.82150795;-38.5039532806615
+6c17164c-69b3-402d-9ab5-0ad5e71ad2fb;Posto de Saude Zelia Correia;Planalto Ayrton Senna;Rua Antonio Pereira;1495;406, 456;(85) 3433-4900;-3.83107285;-38.57111754056932
+1cb7e643-8636-4bd9-8ba8-599c0b187c9b;Unidade de Saude Escola Frei Tito de Alencar Lima;Antonio Diogo;Tv Jose Claudio Gurgel Costa;100;752,906, 920;(85) 3265-7933;;
+5b85c970-9574-4c4a-8303-7c4e1350fd08;Unidade de Saude Escola Mauricio Mattos Dourado;Edson Queiroz;Av Des Floriano Benevides;391;806, 816;(85) 3105-1564;;
