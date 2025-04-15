@@ -17,7 +17,9 @@ public interface PostoRepository extends JpaRepository<Posto, String> {
                     "p.rua as ruaPosto, " +
                     "p.numero as numeroPosto, " +
                     "p.linhas_onibus as linhasOnibusPosto, " +
-                    "p.telefone as telefonePosto " +
+                    "p.telefone as telefonePosto, " +
+                    "CAST(p.latitude as VARCHAR) as latitudePosto, " +
+                    "CAST(p.longitude as VARCHAR) as longitudePosto " +
                     "FROM posto p",
             nativeQuery = true
     )
@@ -40,7 +42,8 @@ public interface PostoRepository extends JpaRepository<Posto, String> {
 
     @Query(
         value = "SELECT new com.meditrackapi.Meditrack.domain.DTOs.PostoTOs.Response.PostoComMedicamentosResponse(" +
-                "p.id, p.nome) " +
+                "p.id, p.nome, " +
+                "concat('', p.latitude), concat('', p.longitude)) " +
                 "FROM Posto p " +
                 "WHERE p.id = :id"
     )
@@ -48,7 +51,8 @@ public interface PostoRepository extends JpaRepository<Posto, String> {
 
     @Query(
         value = "SELECT new com.meditrackapi.Meditrack.domain.DTOs.PostoTOs.Response.PostoResumoResponse(" +
-                "p.id, p.nome, p.bairro, p.rua, p.numero, p.linhasOnibus, p.telefone) " +
+                "p.id, p.nome, p.bairro, p.rua, p.numero, p.linhasOnibus, p.telefone, " +
+                "concat('', p.latitude), concat('', p.longitude)) " +
                 "FROM Posto p " +
                 "WHERE UPPER(p.nome) LIKE UPPER(CONCAT('%', :nome, '%'))"
     )
