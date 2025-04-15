@@ -10,6 +10,7 @@ public class PostoResumoResponse {
     private String telefone;
     private String latitude;
     private String longitude;
+    private Double distancia;
 
     public PostoResumoResponse(String id, String nome, String bairro, String rua, String numero, String linhasOnibus, String telefone, String latitude, String longitude) {
         this.id = id;
@@ -21,6 +22,19 @@ public class PostoResumoResponse {
         this.telefone = telefone;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public PostoResumoResponse(String id, String nome, String bairro, String rua, String numero, String linhasOnibus, String telefone, String latitude, String longitude, Double distancia) {
+        this.id = id;
+        this.nome = nome;
+        this.bairro = bairro;
+        this.rua = rua;
+        this.numero = numero;
+        this.linhasOnibus = linhasOnibus;
+        this.telefone = telefone;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.distancia = distancia;
     }
 
     public String getId() {
@@ -57,5 +71,9 @@ public class PostoResumoResponse {
     
     public String getLongitude() {
         return longitude;
+    }
+    
+    public Double getDistancia() {
+        return distancia;
     }
 }

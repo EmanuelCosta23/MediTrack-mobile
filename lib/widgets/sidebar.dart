@@ -48,7 +48,7 @@ class Sidebar extends StatelessWidget {
                   title: const Text('Remédios'),
                   onTap: () {
                     Navigator.pop(context);
-                    // Navegação futura
+                    Navigator.pushReplacementNamed(context, '/remedios');
                   },
                 ),
                 ListTile(
@@ -56,7 +56,7 @@ class Sidebar extends StatelessWidget {
                   title: const Text('Vacinas'),
                   onTap: () {
                     Navigator.pop(context);
-                    // Navegação futura
+                    Navigator.pushReplacementNamed(context, '/vacinas');
                   },
                 ),
                 ListTile(

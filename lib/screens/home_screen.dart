@@ -1,11 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import '../widgets/sidebar.dart';
 import 'detalhe_posto.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
+import '../services/api_service.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<dynamic> _postos = [];
+  bool _isLoading = true;
+  String _erro = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _carregarPostosProximos();
+  }
+
+  Future<void> _carregarPostosProximos() async {
+    setState(() {
+      _isLoading = true;
+      _erro = '';
+    });
+
+    try {
+      // Verificar e solicitar permissão de localização
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied ||
+            permission == LocationPermission.deniedForever) {
+          setState(() {
+            _erro =
+                'Não foi possível exibir postos de saúde próximos. É necessário que a localização esteja ativada para este aplicativo. Verifique suas configurações de localização.';
+            _isLoading = false;
+          });
+          return;
+        }
+      }
+
+      // Verificar se o serviço de localização está ativado
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        setState(() {
+          _erro =
+              'O serviço de localização está desativado. Por favor, ative-o nas configurações do seu dispositivo para visualizar os postos próximos.';
+          _isLoading = false;
+        });
+        return;
+      }
+
+      // Obter localização atual
+      Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+
+      // Buscar postos próximos
+      final postos = await ApiService.getPostosProximos(
+        position.latitude,
+        position.longitude,
+      );
+
+      setState(() {
+        _postos = postos;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _erro =
+            'Ocorreu um erro ao buscar postos próximos. Verifique suas configurações de localização e tente novamente.';
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,59 +97,95 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         color: const Color(0xFF0080FF),
         height: double.infinity,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: Text(
-                  'Postos de Saúde',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+        child:
+            _isLoading
+                ? const Center(
+                  child: CircularProgressIndicator(color: Colors.white),
+                )
+                : _erro.isNotEmpty
+                ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Erro: $_erro',
+                        style: const TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: _carregarPostosProximos,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: const Color(0xFF0080FF),
+                        ),
+                        child: const Text('Tentar novamente'),
+                      ),
+                    ],
+                  ),
+                )
+                : RefreshIndicator(
+                  onRefresh: _carregarPostosProximos,
+                  color: const Color(0xFF0080FF),
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 16.0),
+                          child: Text(
+                            'Postos de Saúde Próximos',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio:
+                                    0.75, // Ajuste para o card com informação adicional
+                              ),
+                          itemCount: _postos.length > 6 ? 6 : _postos.length,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            final posto = _postos[index];
+                            final distancia = posto['distancia'] ?? 0.0;
+                            final distanciaFormatada =
+                                '${distancia.toStringAsFixed(1)} km';
+
+                            return _buildPostoCard(
+                              context,
+                              posto['nome'] ?? 'Nome indisponível',
+                              '${posto['rua'] ?? ''}, ${posto['numero'] ?? ''}, ${posto['bairro'] ?? ''}',
+                              distanciaFormatada,
+                              posto['id'] ?? '',
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _buildPostoCard(
-                    context,
-                    'Posto de Saúde Central',
-                    'Rua Principal, 123',
-                  ),
-                  _buildPostoCard(
-                    context,
-                    'UPA Jardim América',
-                    'Av. das Flores, 456',
-                  ),
-                  _buildPostoCard(
-                    context,
-                    'Centro de Saúde Familiar',
-                    'Rua dos Ipês, 789',
-                  ),
-                  _buildPostoCard(
-                    context,
-                    'Hospital Municipal',
-                    'Av. Saúde, 1010',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
 
-  Widget _buildPostoCard(BuildContext context, String nome, String endereco) {
+  Widget _buildPostoCard(
+    BuildContext context,
+    String nome,
+    String endereco,
+    String distancia,
+    String id,
+  ) {
     return Card(
       elevation: 4,
       child: Padding(
@@ -102,7 +212,22 @@ class HomeScreen extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                Icon(Icons.location_on, color: Colors.grey[800], size: 14),
+                const SizedBox(width: 2),
+                Text(
+                  distancia,
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Spacer(),
             Center(
               child: SizedBox(
                 height: 28,
@@ -112,8 +237,11 @@ class HomeScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder:
-                            (context) =>
-                                DetalhePosto(nome: nome, endereco: endereco),
+                            (context) => DetalhePosto(
+                              nome: nome,
+                              endereco: endereco,
+                              id: id,
+                            ),
                       ),
                     );
                   },

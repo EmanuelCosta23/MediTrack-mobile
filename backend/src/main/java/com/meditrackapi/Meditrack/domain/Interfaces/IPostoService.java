@@ -12,4 +12,5 @@ public interface IPostoService {
     List<PostoDetalhadoResponse> findAllPostos();
     Optional<PostoComMedicamentosResponse> SearchById(String id);
     List<PostoResumoResponse> SearchByName(String nome);
+    List<PostoResumoResponse> findNearbyPostos(Double userLatitude, Double userLongitude, Double raioKm);
 }

@@ -37,6 +37,8 @@ dependencies:
   http: ^1.1.0
   shared_preferences: ^2.2.2  # Para armazenamento local de token
   provider: ^6.1.1  # Para gerenciamento de estado
+  geolocator: ^10.1.0  # Para obter a localização atual
+  permission_handler: ^11.0.1  # Para gerenciar permissões
 
 dev_dependencies:
   flutter_test:

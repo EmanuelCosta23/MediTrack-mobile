@@ -40,4 +40,13 @@ public class PostoController {
     public ResponseEntity<List<HistoricoEstoqueResponse>> getHistoricoEstoqueByPostoId(){
         return ResponseEntity.ok(_postoService.getHistoricoEstoque());
     }
+
+    @GetMapping("/proximos")
+    public ResponseEntity<List<PostoResumoResponse>> buscarPostosProximos(
+            @RequestParam("latitude") Double userLatitude,
+            @RequestParam("longitude") Double userLongitude,
+            @RequestParam(value = "raio", defaultValue = "10.0") Double raioKm) {
+        
+        return ResponseEntity.ok(_postoService.findNearbyPostos(userLatitude, userLongitude, raioKm));
+    }
 }
