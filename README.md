@@ -73,13 +73,15 @@ As classes responsáveis pela integração estão em:
 - Formatação de CPF em tempo real (apenas visual)
 - Formatação de data de nascimento em tempo real (apenas visual)
 - Integração com endpoint de cadastro de usuário
-
-## Próximos Passos
-
 - Implementar a autenticação completa (login/logout)
 - Salvar token JWT para manter a sessão
 - Implementar integração com endpoints de medicamentos
 - Implementar integração com endpoints de postos de saúde
+- Implementar integração com Google Maps API
+
+## Próximos Passos
+
+- Alterar ícones e atualizar layouts
 
 ## Sobre o Aplicativo
 

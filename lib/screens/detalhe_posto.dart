@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meditrack/services/api_service.dart';
+import 'mapa_posto_screen.dart';
+import 'home_screen.dart';
 
 class DetalhePosto extends StatefulWidget {
   final String nome;
@@ -39,10 +41,19 @@ class _DetalhePostoState extends State<DetalhePosto> {
 
     try {
       // Carregar detalhes do posto - primeiro a chamada principal
+      debugPrint('Buscando posto com ID/Nome: ${widget.id}');
       final postoDetalhes = await ApiService.getPostoById(widget.id);
 
       // Log para depuração
-      debugPrint('Dados do posto (getPostoById): ${postoDetalhes.toString()}');
+      debugPrint('Dados do posto recebidos: ${postoDetalhes.keys.toList()}');
+
+      // Se o ID passado for um nome, atualizar o ID com o real
+      String postoId = widget.id;
+      if (postoDetalhes['id'] != null &&
+          postoDetalhes['id'].toString().isNotEmpty) {
+        postoId = postoDetalhes['id'].toString();
+        debugPrint('ID real do posto encontrado: $postoId');
+      }
 
       // Definir dados iniciais
       setState(() {
@@ -51,10 +62,10 @@ class _DetalhePostoState extends State<DetalhePosto> {
       });
 
       try {
-        // Carregar detalhes adicionais do posto
-        final detalhesCompletos = await ApiService.getPostoDetalhes(widget.id);
+        // Carregar detalhes adicionais do posto com o ID correto
+        final detalhesCompletos = await ApiService.getPostoDetalhes(postoId);
         debugPrint(
-          'Detalhes completos do posto: ${detalhesCompletos.toString()}',
+          'Detalhes completos do posto: ${detalhesCompletos.keys.toList()}',
         );
 
         // Atualizar com informações adicionais se existirem
@@ -63,8 +74,10 @@ class _DetalhePostoState extends State<DetalhePosto> {
           _postoDetalhes = {
             ..._postoDetalhes,
             ...detalhesCompletos,
-            // Manter os medicamentos da primeira chamada
-            'medicamentos': _postoDetalhes['medicamentos'],
+            // Manter os medicamentos da primeira chamada se existirem
+            'medicamentos':
+                _postoDetalhes['medicamentos'] ??
+                detalhesCompletos['medicamentos'],
           };
         });
       } catch (e) {
@@ -77,7 +90,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
       // Carregar medicamentos do posto (se não vieram na resposta inicial)
       if (_postoDetalhes['medicamentos'] == null ||
           (_postoDetalhes['medicamentos'] as List).isEmpty) {
-        _carregarMedicamentos();
+        _carregarMedicamentos(postoId);
       } else {
         setState(() {
           _medicamentos = _postoDetalhes['medicamentos'] as List;
@@ -89,13 +102,14 @@ class _DetalhePostoState extends State<DetalhePosto> {
             'Não foi possível carregar os dados do posto. Verifique sua conexão e tente novamente.';
         _isLoading = false;
       });
+      debugPrint('Erro ao carregar detalhes do posto: $e');
     }
   }
 
-  Future<void> _carregarMedicamentos() async {
+  Future<void> _carregarMedicamentos([String? postoId]) async {
     try {
       final medicamentos = await ApiService.pesquisarMedicamentosEmPosto(
-        widget.id,
+        postoId ?? widget.id,
       );
 
       if (mounted) {
@@ -120,6 +134,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
           ),
         );
       }
+      debugPrint('Erro ao carregar medicamentos: $e');
     }
   }
 
@@ -199,15 +214,24 @@ class _DetalhePostoState extends State<DetalhePosto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          _isLoading
-              ? 'Carregando...'
-              : (_postoDetalhes['nome'] ?? widget.nome),
-          style: const TextStyle(color: Colors.white),
-        ),
+        title: const Text('MediTrack', style: TextStyle(color: Colors.white)),
+        centerTitle: true,
         backgroundColor: const Color(0xFF0080FF),
         foregroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.white),
+        actions: [
+          // Botão Home
+          IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () {
+              // Navegação para a home resetando a pilha de navegação
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                (route) => false, // Remove todas as rotas anteriores
+              );
+            },
+          ),
+        ],
       ),
       body:
           _isLoading
@@ -273,15 +297,70 @@ class _DetalhePostoState extends State<DetalhePosto> {
                             const SizedBox(width: 8),
                             InkWell(
                               onTap: () {
-                                // Implementação futura para abrir mapa
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Funcionalidade em desenvolvimento',
+                                // Verificar se temos as coordenadas do posto
+                                double? latitude;
+                                double? longitude;
+                                double? distancia;
+
+                                // Verificar todas as possibilidades de nomes para as coordenadas
+                                if (_postoDetalhes['latitude'] != null &&
+                                    _postoDetalhes['longitude'] != null) {
+                                  latitude = double.tryParse(
+                                    _postoDetalhes['latitude'].toString(),
+                                  );
+                                  longitude = double.tryParse(
+                                    _postoDetalhes['longitude'].toString(),
+                                  );
+                                } else if (_postoDetalhes['latitudePosto'] !=
+                                        null &&
+                                    _postoDetalhes['longitudePosto'] != null) {
+                                  latitude = double.tryParse(
+                                    _postoDetalhes['latitudePosto'].toString(),
+                                  );
+                                  longitude = double.tryParse(
+                                    _postoDetalhes['longitudePosto'].toString(),
+                                  );
+                                }
+
+                                // Verificar distância
+                                if (_postoDetalhes['distancia'] != null) {
+                                  distancia =
+                                      _postoDetalhes['distancia'] is double
+                                          ? _postoDetalhes['distancia']
+                                          : double.tryParse(
+                                            _postoDetalhes['distancia']
+                                                .toString(),
+                                          );
+                                }
+
+                                if (latitude != null && longitude != null) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) => MapaPostoScreen(
+                                            nome:
+                                                _postoDetalhes['nome'] ??
+                                                widget.nome,
+                                            endereco: _formatarEndereco(
+                                              _postoDetalhes,
+                                            ),
+                                            latitude: latitude!,
+                                            longitude: longitude!,
+                                            distancia: distancia,
+                                          ),
                                     ),
-                                    backgroundColor: Color(0xFF0080FF),
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Não foi possível obter as coordenadas do posto',
+                                      ),
+                                      backgroundColor: Color(0xFF0080FF),
+                                    ),
+                                  );
+                                }
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
@@ -494,19 +573,9 @@ class _DetalhePostoState extends State<DetalhePosto> {
                                                 // Status de disponibilidade
                                                 if (estoque == 0)
                                                   const Text(
-                                                    'Produto não disponível',
+                                                    'Indisponível',
                                                     style: TextStyle(
                                                       color: Colors.red,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 13,
-                                                    ),
-                                                  )
-                                                else if (estoque <= 5)
-                                                  const Text(
-                                                    'Últimas unidades disponíveis',
-                                                    style: TextStyle(
-                                                      color: Colors.orange,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 13,
@@ -687,21 +756,6 @@ class _DetalhePostoState extends State<DetalhePosto> {
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],
-                  ),
-
-                  // Estoque disponível
-                  const SizedBox(height: 12),
-                  Text(
-                    'Quantidade em Estoque:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  Text(
-                    '${medicamento['quantidadeEstoque'] ?? 0} unidades',
-                    style: const TextStyle(fontSize: 16),
                   ),
                 ],
               ),

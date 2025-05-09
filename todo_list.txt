@@ -1,0 +1,9 @@
+- alinhar botões no popup de remedios
+- adicionar logo
+- embelezar app (imagem na tela inicial, icones ao lado do nome do app nas telas)
+- remover botões do mapa, o proprio maps já possui (manter do mapa de posto unico, ler abaixo)
+- remover botões do mapa de posto unico, porém manter o de informações
+- remover popup ao clicar em posto, tentar manter junto da "lista" quando clica no PIN que mostra o nome do posto (LER ABAIXO)
+ou como alternativa adicionar o botão para direcionar pro mapas no modal que abre
+- adicionar modal para escolher modelo do mapa (esta mudando automaticamente para uma unica versão ao clicar)
+- Alinhar telas iniciais (Login/cadastro/esqueci a senha)

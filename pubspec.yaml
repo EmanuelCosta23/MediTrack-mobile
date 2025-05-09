@@ -39,6 +39,9 @@ dependencies:
   provider: ^6.1.1  # Para gerenciamento de estado
   geolocator: ^10.1.0  # Para obter a localização atual
   permission_handler: ^11.0.1  # Para gerenciar permissões
+  google_maps_flutter: ^2.5.0  # Para exibir mapas do Google
+  google_maps_flutter_android: ^2.5.3  # Para controle específico do Android
+  google_maps_flutter_platform_interface: ^2.4.1  # Interface da plataforma para Google Maps
 
 dev_dependencies:
   flutter_test:

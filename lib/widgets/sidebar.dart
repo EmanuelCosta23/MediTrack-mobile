@@ -40,7 +40,7 @@ class Sidebar extends StatelessWidget {
                   title: const Text('Postos'),
                   onTap: () {
                     Navigator.pop(context);
-                    // Navegação futura
+                    Navigator.pushReplacementNamed(context, '/postos');
                   },
                 ),
                 ListTile(
@@ -64,7 +64,7 @@ class Sidebar extends StatelessWidget {
                   title: const Text('Mapas'),
                   onTap: () {
                     Navigator.pop(context);
-                    // Navegação futura para mapas
+                    Navigator.pushReplacementNamed(context, '/mapa');
                   },
                 ),
               ],

@@ -1,0 +1,3 @@
+Quando houver atualização no app, executar este comando:
+
+flutter build apk --debug && flutter install --use-application-binary build/app/outputs/flutter-apk/app-debug.apk
