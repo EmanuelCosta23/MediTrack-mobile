@@ -6,6 +6,8 @@ import 'screens/signup_screen.dart';
 import 'screens/forgot_password_screen.dart';
 import 'screens/vacina_screen.dart';
 import 'screens/remedio_screen.dart';
+import 'screens/posto_screen.dart';
+import 'screens/mapa_posto_screen.dart';
 import 'services/auth_service.dart';
 import 'services/route_guard.dart';
 
@@ -34,6 +36,8 @@ class MyApp extends StatelessWidget {
       '/home': (context) => const HomeScreen(),
       '/vacinas': (context) => const VacinaScreen(),
       '/remedios': (context) => const RemedioScreen(),
+      '/postos': (context) => const PostoScreen(),
+      '/mapa': (context) => const MapaPostoScreen(mostrarTodosPostos: true),
     };
 
     return MaterialApp(

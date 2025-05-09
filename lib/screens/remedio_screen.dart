@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meditrack/services/api_service.dart';
 import '../widgets/sidebar.dart';
+import 'postos_com_medicamento_screen.dart';
+import 'home_screen.dart';
 
 class RemedioScreen extends StatefulWidget {
   const RemedioScreen({super.key});
@@ -213,33 +215,33 @@ class _RemedioScreenState extends State<RemedioScreen> {
                     const SizedBox(height: 12),
 
                     // Lote
-                    Text(
-                      'Lote:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                    Text(
-                      medicamentoDetalhes['loteMedicamento'] ??
-                          medicamentoDetalhes['lote'] ??
-                          'Não informado',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 12),
+                    // Text(
+                    //   'Lote:',
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 14,
+                    //     color: Colors.grey[600],
+                    //   ),
+                    // ),
+                    // Text(
+                    //   medicamentoDetalhes['loteMedicamento'] ??
+                    //       medicamentoDetalhes['lote'] ??
+                    //       'Não informado',
+                    //   style: const TextStyle(fontSize: 16),
+                    // ),
+                    // const SizedBox(height: 12),
 
-                    // Data de vencimento
-                    Text(
-                      'Data de Vencimento:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                    Text(dataVencimento, style: const TextStyle(fontSize: 16)),
-                    const SizedBox(height: 12),
+                    // // Data de vencimento
+                    // Text(
+                    //   'Data de Vencimento:',
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //     fontSize: 14,
+                    //     color: Colors.grey[600],
+                    //   ),
+                    // ),
+                    // Text(dataVencimento, style: const TextStyle(fontSize: 16)),
+                    // const SizedBox(height: 12),
 
                     // Necessita receita (checkbox)
                     Row(
@@ -268,14 +270,55 @@ class _RemedioScreenState extends State<RemedioScreen> {
                 ),
               ),
               actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text(
-                    'Fechar',
-                    style: TextStyle(
-                      color: Color(0xFF0080FF),
-                      fontWeight: FontWeight.bold,
-                    ),
+                // Centraliza os botões
+                Center(
+                  child: Column(
+                    children: [
+                      // Botão para ver postos disponíveis
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.location_on),
+                        label: const Text('Ver postos disponíveis'),
+                        onPressed: () {
+                          // Fechar o modal atual
+                          Navigator.of(context).pop();
+
+                          // Navegar para a tela de postos com o medicamento
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) => PostosComMedicamentoScreen(
+                                    medicamentoId: medicamentoId,
+                                    nomeMedicamento: nomeMedicamento,
+                                  ),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0080FF),
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(
+                            200,
+                            40,
+                          ), // Definir um tamanho mínimo para o botão
+                        ),
+                      ),
+                      const SizedBox(height: 8), // Espaçamento entre os botões
+                      // Botão fechar no mesmo estilo
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.close),
+                        label: const Text('Fechar'),
+                        onPressed: () => Navigator.of(context).pop(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0080FF),
+                          foregroundColor: Colors.white,
+                          minimumSize: const Size(
+                            200,
+                            40,
+                          ), // Mesmo tamanho do botão acima
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -337,13 +380,15 @@ class _RemedioScreenState extends State<RemedioScreen> {
                 ],
               ),
               actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text(
-                    'Fechar',
-                    style: TextStyle(
-                      color: Color(0xFF0080FF),
-                      fontWeight: FontWeight.bold,
+                Center(
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.close),
+                    label: const Text('Fechar'),
+                    onPressed: () => Navigator.of(context).pop(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF0080FF),
+                      foregroundColor: Colors.white,
+                      minimumSize: const Size(200, 40),
                     ),
                   ),
                 ),
@@ -365,6 +410,19 @@ class _RemedioScreenState extends State<RemedioScreen> {
         foregroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: true,
+        actions: [
+          // Botão Home
+          IconButton(
+            icon: const Icon(Icons.home),
+            onPressed: () {
+              // Navegação para a home resetando a pilha de navegação
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                (route) => false, // Remove todas as rotas anteriores
+              );
+            },
+          ),
+        ],
       ),
       drawer: const Sidebar(),
       body: Column(
