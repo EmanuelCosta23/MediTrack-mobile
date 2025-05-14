@@ -7,3 +7,4 @@
 ou como alternativa adicionar o botão para direcionar pro mapas no modal que abre
 - adicionar modal para escolher modelo do mapa (esta mudando automaticamente para uma unica versão ao clicar)
 - Alinhar telas iniciais (Login/cadastro/esqueci a senha)
+- alterar "Necessita receita, apenas SIM ou NÃO"

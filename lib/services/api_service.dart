@@ -2,11 +2,19 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ApiService {
-  // URL base da API - ajuste para o IP correto do seu servidor quando estiver rodando localmente
-  static const String baseUrl =
-      'http://10.0.2.2:8080/api'; // 10.0.2.2 é o IP do localhost para o Android Emulator
+  // URL base da API - ajustada para funcionar no emulador Android e na web
+  static String get baseUrl {
+    if (kIsWeb) {
+      // Para ambiente web, usa localhost
+      return 'http://localhost:8080/api';
+    } else {
+      // Para Android Emulator
+      return 'http://10.0.2.2:8080/api';
+    }
+  }
 
   // Headers padrão para requisições não autenticadas
   static Map<String, String> get _defaultHeaders => {
