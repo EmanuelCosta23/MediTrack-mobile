@@ -915,58 +915,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                 ),
               )
               : _buildMapView(),
-      // Botão flutuante para centralizar na localização do usuário (apenas para mostrar todos os postos)
-      floatingActionButton:
-          widget.mostrarTodosPostos
-              ? Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  FloatingActionButton.small(
-                    onPressed: () {
-                      if (_mapController != null) {
-                        _mapController!.animateCamera(CameraUpdate.zoomIn());
-                      }
-                    },
-                    backgroundColor: const Color(0xFF0080FF),
-                    heroTag: 'zoom_in',
-                    child: const Icon(Icons.add, color: Colors.white),
-                  ),
-                  const SizedBox(height: 10),
-                  FloatingActionButton.small(
-                    onPressed: () {
-                      if (_mapController != null) {
-                        _mapController!.animateCamera(CameraUpdate.zoomOut());
-                      }
-                    },
-                    backgroundColor: const Color(0xFF0080FF),
-                    heroTag: 'zoom_out',
-                    child: const Icon(Icons.remove, color: Colors.white),
-                  ),
-                  const SizedBox(height: 10),
-                  FloatingActionButton(
-                    onPressed: () {
-                      if (_userPosition != null && _mapController != null) {
-                        _mapController!.animateCamera(
-                          CameraUpdate.newLatLngZoom(
-                            LatLng(
-                              _userPosition!.latitude,
-                              _userPosition!.longitude,
-                            ),
-                            14.0,
-                          ),
-                        );
-                      } else {
-                        // Se não temos a localização, tentar obtê-la
-                        _inicializarMapaComTodosPostos();
-                      }
-                    },
-                    backgroundColor: const Color(0xFF0080FF),
-                    heroTag: 'my_location',
-                    child: const Icon(Icons.my_location, color: Colors.white),
-                  ),
-                ],
-              )
-              : null,
     );
   }
 
@@ -1012,7 +960,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                 ),
                 markers: _markers,
                 myLocationEnabled: true, // Habilitar a localização real
-                myLocationButtonEnabled: false,
+                myLocationButtonEnabled: false, // Desabilitar botão nativo para usar o nosso personalizado
                 mapToolbarEnabled: true,
                 zoomControlsEnabled: true,
                 compassEnabled: true,
@@ -1040,53 +988,55 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
           },
         ),
 
+        // Botão de localização posicionado acima dos controles da câmera
+        if (widget.mostrarTodosPostos || (_userPosition != null && !widget.mostrarTodosPostos))
+          Positioned(
+            right: 10,
+            bottom: 200, // Posicionado bem acima dos controles nativos do Google Maps
+            child: FloatingActionButton.small(
+              onPressed: () {
+                if (_userPosition != null && _mapController != null) {
+                  _mapController!.animateCamera(
+                    CameraUpdate.newLatLngZoom(
+                      LatLng(
+                        _userPosition!.latitude,
+                        _userPosition!.longitude,
+                      ),
+                      14.0,
+                    ),
+                  );
+                } else {
+                  // Se não temos a localização, tentar obtê-la
+                  if (widget.mostrarTodosPostos) {
+                    _inicializarMapaComTodosPostos();
+                  } else {
+                    _inicializarMapaComPostoEspecifico();
+                  }
+                }
+              },
+              backgroundColor: const Color(0xFF0080FF),
+              heroTag: 'my_location',
+              child: const Icon(Icons.my_location, color: Colors.white),
+            ),
+          ),
+
         // Botões de controle na parte inferior direita
         if (!widget.mostrarTodosPostos)
           Positioned(
-            right: 16,
-            bottom: 16,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Botão para minimizar/maximizar detalhes do posto
-                FloatingActionButton.small(
-                  onPressed: () {
-                    setState(() {
-                      _detalhesMinimizados = !_detalhesMinimizados;
-                    });
-                  },
-                  backgroundColor: const Color(0xFF0080FF),
-                  heroTag: 'toggle_details',
-                  child: Icon(
-                    _detalhesMinimizados ? Icons.info : Icons.info_outline,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // Botão de zoom +
-                FloatingActionButton.small(
-                  onPressed: () {
-                    if (_mapController != null) {
-                      _mapController!.animateCamera(CameraUpdate.zoomIn());
-                    }
-                  },
-                  backgroundColor: const Color(0xFF0080FF),
-                  heroTag: 'zoom_in_specific',
-                  child: const Icon(Icons.add, color: Colors.white),
-                ),
-                const SizedBox(height: 8),
-                // Botão de zoom -
-                FloatingActionButton.small(
-                  onPressed: () {
-                    if (_mapController != null) {
-                      _mapController!.animateCamera(CameraUpdate.zoomOut());
-                    }
-                  },
-                  backgroundColor: const Color(0xFF0080FF),
-                  heroTag: 'zoom_out_specific',
-                  child: const Icon(Icons.remove, color: Colors.white),
-                ),
-              ],
+            right: 10,
+            bottom: 260, // Posicionado acima do botão de localização
+            child: FloatingActionButton.small(
+              onPressed: () {
+                setState(() {
+                  _detalhesMinimizados = !_detalhesMinimizados;
+                });
+              },
+              backgroundColor: const Color(0xFF0080FF),
+              heroTag: 'toggle_details',
+              child: Icon(
+                _detalhesMinimizados ? Icons.info : Icons.info_outline,
+                color: Colors.white,
+              ),
             ),
           ),
 
@@ -1096,7 +1046,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
             !_detalhesMinimizados)
           Positioned(
             left: 10,
-            right: 70, // Deixar espaço para os botões de zoom
+            right: 60, // Deixar espaço para os botões à direita
             bottom: 10,
             child: Container(
               margin: const EdgeInsets.all(8.0),
