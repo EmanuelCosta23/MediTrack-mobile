@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../widgets/sidebar.dart';
+import '../widgets/custom_logo.dart';
 import 'detalhe_posto.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
@@ -365,7 +366,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MediTrack'),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const MediTrackLogo(size: 28),
+            const SizedBox(width: 8),
+            const Text('MediTrack'),
+          ],
+        ),
         backgroundColor: const Color(0xFF0080FF),
         foregroundColor: Colors.white,
         centerTitle: true,
