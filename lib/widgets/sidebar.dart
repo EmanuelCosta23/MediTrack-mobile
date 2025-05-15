@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
+import 'custom_logo.dart';
 
 class Sidebar extends StatelessWidget {
   const Sidebar({super.key});
@@ -12,14 +13,21 @@ class Sidebar extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(color: Color(0xFF0080FF)),
-            child: const Center(
-              child: Text(
-                'MediTrack',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const MediTrackLogo(size: 60),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'MediTrack',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
