@@ -350,10 +350,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0080FF),
       appBar: AppBar(
         title: const Text('Cadastro'),
-        backgroundColor: const Color(0xFF0080FF),
+        backgroundColor: Colors.transparent,
         foregroundColor: Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
@@ -364,270 +363,296 @@ class _SignUpScreenState extends State<SignUpScreen> {
           },
         ),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
-              vertical: 10.0,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // App Title
-                const Text(
-                  'MediTrack',
-                  style: TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-
-                // Title
-                const Text(
-                  'Crie sua conta',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 30),
-
-                // Full Name TextField
-                TextField(
-                  controller: _nomeController,
-                  decoration: InputDecoration(
-                    labelText: 'Nome Completo',
-                    labelStyle: const TextStyle(color: Color(0xFF0080FF)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.person,
-                      color: Color(0xFF0080FF),
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
-                    ),
-                    errorText: _nomeError,
-                    errorStyle: const TextStyle(
-                      color: Colors.red,
+      extendBodyBehindAppBar: true,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF0080FF),  // Azul mais escuro no topo
+              Color(0xFF40BFFF),  // Azul mais claro embaixo
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              width: double.infinity,
+              constraints: BoxConstraints(
+                minHeight: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 10.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // App Title
+                  const Text(
+                    'MediTrack',
+                    style: TextStyle(
+                      fontSize: 48,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  keyboardType: TextInputType.name,
-                  onChanged: (_) => _limparErro('nome'),
-                ),
-                const SizedBox(height: 15),
+                  const SizedBox(height: 20),
 
-                // CPF TextField - Usando o controller visual para exibição formatada
-                TextField(
-                  controller: _cpfVisualController,
-                  decoration: InputDecoration(
-                    labelText: 'CPF',
-                    labelStyle: const TextStyle(color: Color(0xFF0080FF)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.badge,
-                      color: Color(0xFF0080FF),
-                    ),
-                    hintText: '000.000.000-00',
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
-                    ),
-                    errorText: _cpfError,
-                    errorStyle: const TextStyle(
-                      color: Colors.red,
+                  // Title
+                  const Text(
+                    'Crie sua conta',
+                    style: TextStyle(
+                      fontSize: 24,
                       fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
+                    textAlign: TextAlign.center,
                   ),
-                  keyboardType: TextInputType.number,
-                  onChanged: _formatarCPF,
-                ),
-                const SizedBox(height: 15),
+                  const SizedBox(height: 30),
 
-                // Data de Nascimento TextField - Usando o controller visual
-                TextField(
-                  controller: _dataVisualController,
-                  decoration: InputDecoration(
-                    labelText: 'Data de Nascimento',
-                    labelStyle: const TextStyle(color: Color(0xFF0080FF)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide.none,
+                  // Área do formulário com fundo branco semitransparente
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    prefixIcon: const Icon(
-                      Icons.calendar_today,
-                      color: Color(0xFF0080FF),
-                    ),
-                    hintText: 'DD/MM/AAAA',
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
-                    ),
-                    errorText: _dataNascimentoError,
-                    errorStyle: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        // Full Name TextField
+                        TextField(
+                          controller: _nomeController,
+                          decoration: InputDecoration(
+                            labelText: 'Nome Completo',
+                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.person,
+                              color: Color(0xFF0080FF),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 20,
+                            ),
+                            errorText: _nomeError,
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          keyboardType: TextInputType.name,
+                          onChanged: (_) => _limparErro('nome'),
+                        ),
+                        const SizedBox(height: 15),
+                        // CPF TextField - Usando o controller visual para exibição formatada
+                        TextField(
+                          controller: _cpfVisualController,
+                          decoration: InputDecoration(
+                            labelText: 'CPF',
+                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.badge,
+                              color: Color(0xFF0080FF),
+                            ),
+                            hintText: '000.000.000-00',
+                            fillColor: Colors.white,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 20,
+                            ),
+                            errorText: _cpfError,
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          keyboardType: TextInputType.number,
+                          onChanged: _formatarCPF,
+                        ),
+                        const SizedBox(height: 15),
+                        // Data de Nascimento TextField - Usando o controller visual
+                        TextField(
+                          controller: _dataVisualController,
+                          decoration: InputDecoration(
+                            labelText: 'Data de Nascimento',
+                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.calendar_today,
+                              color: Color(0xFF0080FF),
+                            ),
+                            hintText: 'DD/MM/AAAA',
+                            fillColor: Colors.white,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 20,
+                            ),
+                            errorText: _dataNascimentoError,
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          keyboardType: TextInputType.number,
+                          onChanged: _formatarData,
+                        ),
+                        const SizedBox(height: 15),
+                        // Email TextField
+                        TextField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.email,
+                              color: Color(0xFF0080FF),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 20,
+                            ),
+                            errorText: _emailError,
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          onChanged: (_) => _limparErro('email'),
+                        ),
+                        const SizedBox(height: 15),
+                        // Password TextField
+                        TextField(
+                          controller: _senhaController,
+                          decoration: InputDecoration(
+                            labelText: 'Senha',
+                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.lock,
+                              color: Color(0xFF0080FF),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 20,
+                            ),
+                            errorText: _senhaError,
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          obscureText: true,
+                          onChanged: (_) => _limparErro('senha'),
+                        ),
+                        const SizedBox(height: 15),
+                        // Confirm Password TextField
+                        TextField(
+                          controller: _confirmarSenhaController,
+                          decoration: InputDecoration(
+                            labelText: 'Confirmar Senha',
+                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              borderSide: BorderSide.none,
+                            ),
+                            prefixIcon: const Icon(
+                              Icons.lock_outline,
+                              color: Color(0xFF0080FF),
+                            ),
+                            fillColor: Colors.white,
+                            filled: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15,
+                              horizontal: 20,
+                            ),
+                            errorText: _confirmarSenhaError,
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          obscureText: true,
+                        ),
+                      ],
                     ),
                   ),
-                  keyboardType: TextInputType.number,
-                  onChanged: _formatarData,
-                ),
-                const SizedBox(height: 15),
+                  const SizedBox(height: 30),
 
-                // Email TextField
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    labelStyle: const TextStyle(color: Color(0xFF0080FF)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.email,
-                      color: Color(0xFF0080FF),
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
-                    ),
-                    errorText: _emailError,
-                    errorStyle: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  onChanged: (_) => _limparErro('email'),
-                ),
-                const SizedBox(height: 15),
-
-                // Password TextField
-                TextField(
-                  controller: _senhaController,
-                  decoration: InputDecoration(
-                    labelText: 'Senha',
-                    labelStyle: const TextStyle(color: Color(0xFF0080FF)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.lock,
-                      color: Color(0xFF0080FF),
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
-                    ),
-                    errorText: _senhaError,
-                    errorStyle: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  obscureText: true,
-                  onChanged: (_) => _limparErro('senha'),
-                ),
-                const SizedBox(height: 15),
-
-                // Confirm Password TextField
-                TextField(
-                  controller: _confirmarSenhaController,
-                  decoration: InputDecoration(
-                    labelText: 'Confirmar Senha',
-                    labelStyle: const TextStyle(color: Color(0xFF0080FF)),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide.none,
-                    ),
-                    prefixIcon: const Icon(
-                      Icons.lock_outline,
-                      color: Color(0xFF0080FF),
-                    ),
-                    fillColor: Colors.white,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20,
-                    ),
-                    errorText: _confirmarSenhaError,
-                    errorStyle: const TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  obscureText: true,
-                ),
-                const SizedBox(height: 30),
-
-                // Sign Up Button
-                ElevatedButton(
-                  onPressed: _cadastrarUsuario,
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: const Color(0xFF0080FF),
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const Text(
-                    'Cadastrar',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // Already have an account
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Já possui uma conta?',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        // Voltar para a tela de login
-                        Navigator.of(context).pop();
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.white,
+                  // Sign Up Button
+                  ElevatedButton(
+                    onPressed: _cadastrarUsuario,
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xFF4CD2DC), // mesma cor do "Track"
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      elevation: 3,
+                      shadowColor: Colors.black.withOpacity(0.3),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      child: const Text('Faça login'),
                     ),
-                  ],
-                ),
-                // Adicionar espaço extra no final para scroll
-                const SizedBox(height: 40),
-              ],
+                    child: const Text(
+                      'Cadastrar',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Already have an account
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Já possui uma conta?',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          // Voltar para a tela de login
+                          Navigator.of(context).pop();
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.white,
+                        ),
+                        child: const Text('Faça login'),
+                      ),
+                    ],
+                  ),
+                  // Adicionar espaço extra no final para scroll
+                  const SizedBox(height: 40),
+                ],
+              ),
             ),
           ),
         ),
