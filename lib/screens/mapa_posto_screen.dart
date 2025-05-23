@@ -3,9 +3,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../services/api_service.dart';
 import '../widgets/sidebar.dart';
-import 'home_screen.dart'; // Importando a home
+import 'home_screen.dart';
+import 'detalhe_posto.dart';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
+import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:developer' as developer;
 
 class MapaPostoScreen extends StatefulWidget {
@@ -39,13 +45,10 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
   List<dynamic> _postos = [];
   bool _mapInitialized = false;
   bool _mapError = false;
-  MapType _currentMapType = MapType.normal; // Tipo de mapa atual
-  bool _detalhesMinimizados =
-      false; // Controlar se os detalhes estão minimizados
-  final LatLng _defaultLocation = const LatLng(
-    -3.7480523,
-    -38.5676128,
-  ); // Fortaleza, CE
+  MapType _currentMapType = MapType.normal;
+  bool _detalhesMinimizados = false;
+  final LatLng _defaultLocation = const LatLng(-3.7480523, -38.5676128);
+  BitmapDescriptor? _customIcon;
 
   @override
   void initState() {
@@ -54,15 +57,12 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
       'MapaPostoScreen inicializada. mostrarTodosPostos: ${widget.mostrarTodosPostos}',
     );
 
-    // Configurar o Google Maps
+    _loadCustomIcon();
     _configureGoogleMaps();
 
-    // Forçar a obtenção da localização real primeiro
     if (widget.mostrarTodosPostos) {
-      // Primeiro tentar obter a localização específica para emulador
       _obterLocalizacaoEmulador().then((localizacaoObtida) {
         if (!localizacaoObtida) {
-          // Se falhar, usar o método padrão
           _obterLocalizacaoRealPrimeiro();
         }
       });
@@ -71,18 +71,77 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     }
   }
 
+  // Future<void> _loadCustomIcon() async {
+  //   try {
+  //     _customIcon = await BitmapDescriptor.fromAssetImage(
+  //       const ImageConfiguration(size: Size(48, 48)),
+  //       'assets/images/hospital_cross.png',
+  //     );
+  //     developer.log(
+  //       'Ícone personalizado hospital_cross.png carregado com sucesso',
+  //     );
+  //   } catch (e) {
+  //     developer.log('Erro ao carregar ícone personalizado: $e');
+  //     _customIcon = BitmapDescriptor.defaultMarkerWithHue(
+  //       BitmapDescriptor.hueRed,
+  //     );
+  //   }
+  // }
+
+  Future<void> _loadCustomIcon() async {
+    try {
+      // Define o tamanho baseado na plataforma
+      int iconSize;
+      if (kIsWeb) {
+        iconSize = 48; // Tamanho maior para web
+      } else {
+        iconSize = 124; // Tamanho menor para mobile
+      }
+
+      // Carrega a imagem como bytes
+      final ByteData data = await rootBundle.load(
+        'assets/images/hospital_cross.png',
+      );
+      final Uint8List bytes = data.buffer.asUint8List();
+
+      // Decodifica e redimensiona a imagem
+      final ui.Codec codec = await ui.instantiateImageCodec(
+        bytes,
+        targetWidth: iconSize,
+        targetHeight: iconSize,
+      );
+      final ui.FrameInfo frameInfo = await codec.getNextFrame();
+      final ui.Image image = frameInfo.image;
+
+      // Converte para bytes PNG
+      final ByteData? byteData = await image.toByteData(
+        format: ui.ImageByteFormat.png,
+      );
+      final Uint8List resizedBytes = byteData!.buffer.asUint8List();
+
+      // Cria o BitmapDescriptor
+      _customIcon = BitmapDescriptor.fromBytes(resizedBytes);
+
+      developer.log(
+        'Ícone carregado - Plataforma: ${kIsWeb ? "Web" : "Mobile"}, '
+        'Tamanho: ${iconSize}x${iconSize} pixels',
+      );
+    } catch (e) {
+      developer.log('Erro ao carregar ícone personalizado: $e');
+      _customIcon = BitmapDescriptor.defaultMarkerWithHue(
+        BitmapDescriptor.hueRed,
+      );
+    }
+  }
+
   Future<void> _configureGoogleMaps() async {
     try {
-      // Configurar o renderizador para o Android
       final GoogleMapsFlutterAndroid platform =
           GoogleMapsFlutterPlatform.instance as GoogleMapsFlutterAndroid;
-
-      // Desativar o modo lite para permitir gestos e ter funcionalidade completa
       await platform.initializeWithRenderer(AndroidMapRenderer.latest);
       developer.log('Configurado renderizador LATEST com sucesso');
     } catch (e) {
       developer.log('Erro ao configurar renderizador do Google Maps: $e');
-      // Continue mesmo com erro de configuração
     }
   }
 
@@ -94,13 +153,11 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
       );
       developer.log('==========================================');
 
-      // Verificar permissões primeiro
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
       }
 
-      // Se não tem permissão, falha
       if (permission == LocationPermission.denied ||
           permission == LocationPermission.deniedForever) {
         developer.log('==========================================');
@@ -109,8 +166,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         return false;
       }
 
-      // No emulador, às vezes precisamos forçar uma localização manualmente
-      // Verificar se já existe uma posição simulada no emulador
       developer.log('MapaPostoScreen: Tentando obter via stream (emulador)...');
       final List<Position> positions =
           await GeolocatorPlatform.instance
@@ -134,15 +189,11 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
           'LAT: ${_userPosition!.latitude}, LONG: ${_userPosition!.longitude}',
         );
         developer.log('==========================================');
-
-        // Inicializar o mapa com a posição obtida
         _inicializarMapaComTodosPostos();
         return true;
       }
 
-      // Se não conseguiu via stream, tenta o mock para emulador
       developer.log('MapaPostoScreen: Usando posição simulada para emulador');
-      // Essa é uma localização fictícia que você pode configurar no emulador
       _userPosition = Position(
         latitude: -3.7480523,
         longitude: -38.5676128,
@@ -165,7 +216,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
       );
       developer.log('==========================================');
 
-      // Inicializar o mapa com a posição mock
       _inicializarMapaComTodosPostos();
       return true;
     } catch (e) {
@@ -181,13 +231,11 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
   Future<void> _obterLocalizacaoRealPrimeiro() async {
     try {
       developer.log('Obtendo localização real no início do aplicativo...');
-      // Verificar permissões
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
       }
 
-      // Verificar serviço
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         developer.log('Serviço de localização desativado no início');
@@ -195,7 +243,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         return;
       }
 
-      // Tentar obter localização com alta precisão
       try {
         _userPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.bestForNavigation,
@@ -204,14 +251,11 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         developer.log(
           'SUCESSO INICIAL: Localização real obtida com alta precisão: ${_userPosition!.latitude}, ${_userPosition!.longitude}',
         );
-
-        // Se obteve a localização com sucesso, inicializar o mapa
         _inicializarMapaComTodosPostos();
       } catch (e) {
         developer.log(
           'FALHA INICIAL: Erro ao obter localização com alta precisão: $e',
         );
-        // Tentar com precisão menor
         _inicializarMapaComTodosPostos();
       }
     } catch (e) {
@@ -228,7 +272,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     });
 
     try {
-      // Verificar e solicitar permissão de localização
       LocationPermission permission = await Geolocator.checkPermission();
       developer.log('Permissão atual: $permission');
 
@@ -244,13 +287,11 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                 'Não foi possível acessar sua localização. Verifique as permissões do aplicativo.';
             _isLoading = false;
           });
-          // Mesmo sem permissão, podemos carregar os postos
           await _carregarPostos();
           return;
         }
       }
 
-      // Verificar se o serviço de localização está ativado
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       developer.log('Serviço de localização ativado: $serviceEnabled');
 
@@ -261,12 +302,10 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
               'O serviço de localização está desativado. Por favor, ative-o nas configurações do seu dispositivo.';
           _isLoading = false;
         });
-        // Mesmo sem serviço, podemos carregar os postos
         await _carregarPostos();
         return;
       }
 
-      // Obter localização atual - com várias tentativas
       try {
         developer.log('Tentando obter posição atual com alta precisão...');
         try {
@@ -323,10 +362,8 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         }
       } catch (e) {
         developer.log('Erro geral ao obter posição: $e');
-        // Continuar mesmo sem a posição atual
       }
 
-      // Carregar postos próximos
       await _carregarPostos();
 
       setState(() {
@@ -339,8 +376,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
             'Ocorreu um erro ao carregar o mapa. Verifique sua conexão e tente novamente.';
         _isLoading = false;
       });
-
-      // Mesmo com erro, tentar carregar postos
       await _carregarPostos();
     }
   }
@@ -348,14 +383,13 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
   Future<void> _carregarPostos() async {
     try {
       if (_userPosition != null) {
-        // Se temos a posição do usuário, buscar postos próximos
         developer.log(
           'CARREGANDO POSTOS COM LOCALIZAÇÃO REAL: ${_userPosition!.latitude}, ${_userPosition!.longitude}',
         );
         final postos = await ApiService.getPostosProximos(
           _userPosition!.latitude,
           _userPosition!.longitude,
-          20.0, // raio de 20km
+          20.0,
         );
         developer.log(
           'Postos encontrados com localização real: ${postos.length}',
@@ -364,16 +398,14 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
           _postos = postos;
         });
       } else {
-        // Se não temos a posição, tentar buscar todos os postos
         try {
-          // Usar posição padrão para buscar postos
           developer.log(
             'CARREGANDO POSTOS COM LOCALIZAÇÃO PADRÃO: ${_defaultLocation.latitude}, ${_defaultLocation.longitude}',
           );
           final postos = await ApiService.getPostosProximos(
             _defaultLocation.latitude,
             _defaultLocation.longitude,
-            20.0, // raio de 20km
+            20.0,
           );
           developer.log(
             'Postos encontrados com localização padrão: ${postos.length}',
@@ -389,8 +421,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         }
       }
 
-      // Adicionar marcadores para os postos
-      _adicionarMarcadoresPostos();
+      await _adicionarMarcadoresPostos();
     } catch (e) {
       developer.log('Erro ao carregar postos: $e');
       setState(() {
@@ -399,12 +430,10 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     }
   }
 
-  void _adicionarMarcadoresPostos() {
+  Future<void> _adicionarMarcadoresPostos() async {
     developer.log('Adicionando marcadores para ${_postos.length} postos');
-    // Conjunto de marcadores
     Set<Marker> markers = {};
 
-    // Adicionar marcador para posição atual
     if (_userPosition != null) {
       markers.add(
         Marker(
@@ -414,14 +443,12 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
           icon: BitmapDescriptor.defaultMarkerWithHue(
             BitmapDescriptor.hueGreen,
           ),
-          zIndex: 2, // Para ficar acima dos outros marcadores
+          zIndex: 2,
         ),
       );
     }
 
-    // Adicionar marcadores para os postos
     for (var posto in _postos) {
-      // Verificar se temos latitude e longitude do posto
       if (posto['latitude'] != null && posto['longitude'] != null) {
         final double? lat = double.tryParse(posto['latitude'].toString());
         final double? lng = double.tryParse(posto['longitude'].toString());
@@ -438,9 +465,11 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                 snippet:
                     '${posto['rua'] ?? ''}, ${posto['numero'] ?? ''} - ${posto['bairro'] ?? ''}',
               ),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueRed,
-              ),
+              icon:
+                  _customIcon ??
+                  BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueRed,
+                  ),
               onTap: () {
                 _showPostoDetails(posto);
               },
@@ -455,7 +484,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
       _markers = markers;
     });
 
-    // Se temos a posição do usuário, centralizar nela
     if (_userPosition != null && _mapController != null) {
       _mapController!.animateCamera(
         CameraUpdate.newLatLngZoom(
@@ -463,9 +491,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
           13.0,
         ),
       );
-    }
-    // Se não temos a posição mas temos postos, centralizar no primeiro posto
-    else if (_postos.isNotEmpty && _mapController != null) {
+    } else if (_postos.isNotEmpty && _mapController != null) {
       final posto = _postos.first;
       final double? lat = double.tryParse(posto['latitude'].toString());
       final double? lng = double.tryParse(posto['longitude'].toString());
@@ -490,7 +516,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     });
 
     try {
-      // Verificar e solicitar permissão de localização
       LocationPermission permission = await Geolocator.checkPermission();
       developer.log('Permissão atual: $permission');
 
@@ -506,14 +531,11 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                 'Não foi possível acessar sua localização. Verifique as permissões do aplicativo.';
             _isLoading = false;
           });
-
-          // Ainda podemos mostrar o posto sem a localização do usuário
           _adicionarMarcadorPostoEspecifico();
           return;
         }
       }
 
-      // Verificar se o serviço de localização está ativado
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       developer.log('Serviço de localização ativado: $serviceEnabled');
 
@@ -524,13 +546,10 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
               'O serviço de localização está desativado. Por favor, ative-o nas configurações do seu dispositivo.';
           _isLoading = false;
         });
-
-        // Ainda podemos mostrar o posto sem a localização do usuário
         _adicionarMarcadorPostoEspecifico();
         return;
       }
 
-      // Obter localização atual com várias tentativas
       try {
         developer.log(
           'Tentando obter posição atual com alta precisão (modo específico)...',
@@ -589,10 +608,8 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         }
       } catch (e) {
         developer.log('Erro geral ao obter posição (modo específico): $e');
-        // Continuar mesmo sem a posição atual
       }
 
-      // Adicionar marcadores
       _adicionarMarcadorPostoEspecifico();
 
       setState(() {
@@ -605,23 +622,18 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
             'Ocorreu um erro ao carregar o mapa. Verifique sua conexão e tente novamente.';
         _isLoading = false;
       });
-
-      // Tentar mostrar o posto mesmo com erro
       _adicionarMarcadorPostoEspecifico();
     }
   }
 
   void _adicionarMarcadorPostoEspecifico() {
     developer.log('Adicionando marcador para posto específico');
-    // Conjunto de marcadores
     Set<Marker> markers = {};
 
-    // Verificar se temos latitude e longitude
     if (widget.latitude != null && widget.longitude != null) {
       developer.log(
         'Adicionando marcador para posto: ${widget.latitude}, ${widget.longitude}',
       );
-      // Marcador do posto
       markers.add(
         Marker(
           markerId: const MarkerId('posto'),
@@ -630,12 +642,13 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
             title: widget.nome ?? 'Posto de saúde',
             snippet: widget.endereco ?? '',
           ),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+          icon:
+              _customIcon ??
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         ),
       );
     }
 
-    // Marcador do usuário (se disponível)
     if (_userPosition != null) {
       developer.log(
         'Adicionando marcador para usuário: ${_userPosition!.latitude}, ${_userPosition!.longitude}',
@@ -665,8 +678,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
       _mapInitialized = true;
     });
 
-    // Forçar uma atualização do mapa
-    controller.setMapStyle('[]'); // Estilo vazio para garantir renderização
+    controller.setMapStyle('[]');
     controller.moveCamera(
       CameraUpdate.newLatLngZoom(
         widget.mostrarTodosPostos
@@ -681,7 +693,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     );
   }
 
-  // Método para lidar com falha no carregamento do mapa
   void _handleMapError() {
     developer.log('Erro ao carregar o mapa');
     setState(() {
@@ -690,138 +701,137 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     });
   }
 
-  // Exibe detalhes do posto em um modal
   void _showPostoDetails(Map<String, dynamic> posto) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      enableDrag: false,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       builder:
-          (context) => DraggableScrollableSheet(
-            initialChildSize: 0.4,
-            minChildSize: 0.3,
-            maxChildSize: 0.7,
-            expand: false,
-            builder:
-                (_, scrollController) => SingleChildScrollView(
-                  controller: scrollController,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+          (context) => Container(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+            ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Center(
+                      child: Container(
+                        width: 40,
+                        height: 5,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        margin: const EdgeInsets.only(bottom: 20),
+                      ),
+                    ),
+                    Text(
+                      posto['nome'] ?? 'Posto de saúde',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF0080FF),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    _buildInfoRow(
+                      Icons.location_on,
+                      '${posto['rua'] ?? ''}, ${posto['numero'] ?? ''} - ${posto['bairro'] ?? ''}',
+                    ),
+                    if (posto['telefone'] != null &&
+                        posto['telefone'].toString().isNotEmpty)
+                      _buildInfoRow(Icons.phone, posto['telefone']),
+                    if (posto['distancia'] != null)
+                      _buildInfoRow(
+                        Icons.directions_walk,
+                        '${posto['distancia'].toStringAsFixed(1)} km de distância',
+                      ),
+                    if (posto['linhasOnibus'] != null ||
+                        posto['linhasOnibusPosto'] != null)
+                      _buildInfoRow(
+                        Icons.directions_bus,
+                        'Linhas de ônibus: ${posto['linhasOnibus'] ?? posto['linhasOnibusPosto'] ?? ''}',
+                      ),
+                    const SizedBox(height: 20),
+                    Column(
                       children: [
-                        Center(
-                          child: Container(
-                            width: 40,
-                            height: 5,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            margin: const EdgeInsets.only(bottom: 20),
-                          ),
-                        ),
-                        Text(
-                          posto['nome'] ?? 'Posto de saúde',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF0080FF),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        _buildInfoRow(
-                          Icons.location_on,
-                          '${posto['rua'] ?? ''}, ${posto['numero'] ?? ''} - ${posto['bairro'] ?? ''}',
-                        ),
-                        if (posto['telefone'] != null &&
-                            posto['telefone'].toString().isNotEmpty)
-                          _buildInfoRow(Icons.phone, posto['telefone']),
-                        if (posto['distancia'] != null)
-                          _buildInfoRow(
-                            Icons.directions_walk,
-                            '${posto['distancia'].toStringAsFixed(1)} km de distância',
-                          ),
-                        if (posto['linhasOnibus'] != null ||
-                            posto['linhasOnibusPosto'] != null)
-                          _buildInfoRow(
-                            Icons.directions_bus,
-                            'Linhas de ônibus: ${posto['linhasOnibus'] ?? posto['linhasOnibusPosto'] ?? ''}',
-                          ),
-                        const SizedBox(height: 20),
-                        // Botões horizontais ocupando toda a largura
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton.icon(
-                                onPressed: () {
-                                  // Centralizar no posto
-                                  final double? lat = double.tryParse(
-                                    posto['latitude']?.toString() ?? '',
-                                  );
-                                  final double? lng = double.tryParse(
-                                    posto['longitude']?.toString() ?? '',
-                                  );
-
-                                  if (lat != null &&
-                                      lng != null &&
-                                      _mapController != null) {
-                                    _mapController!.animateCamera(
-                                      CameraUpdate.newLatLngZoom(
-                                        LatLng(lat, lng),
-                                        16.0,
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) => DetalhePosto(
+                                        nome: posto['nome'] ?? 'Posto de saúde',
+                                        endereco:
+                                            '${posto['rua'] ?? ''}, ${posto['numero'] ?? ''} - ${posto['bairro'] ?? ''}',
+                                        id: posto['id'] ?? '',
                                       ),
-                                    );
-                                    Navigator.pop(context);
-                                  }
-                                },
-                                icon: const Icon(
-                                  Icons.place,
-                                  color: Colors.white,
                                 ),
-                                label: const Text('Ver no mapa'),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF0080FF),
-                                  foregroundColor: Colors.white,
-                                ),
-                              ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.info,
+                              size: 18,
+                              color: Colors.white,
                             ),
-                            if (_userPosition != null) const SizedBox(width: 8),
-                            if (_userPosition != null)
-                              Expanded(
-                                child: ElevatedButton.icon(
-                                  onPressed: () {
-                                    // Centralizar na localização do usuário
-                                    _mapController?.animateCamera(
-                                      CameraUpdate.newLatLngZoom(
-                                        LatLng(
-                                          _userPosition!.latitude,
-                                          _userPosition!.longitude,
-                                        ),
-                                        16.0,
-                                      ),
-                                    );
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(
-                                    Icons.my_location,
-                                    color: Colors.white,
+                            label: const Text('Ver detalhes'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF0080FF),
+                              foregroundColor: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            onPressed: () async {
+                              final url = Uri.parse(
+                                'https://www.google.com/maps/dir/?api=1&destination=${posto['latitude']},${posto['longitude']}',
+                              );
+                              if (await canLaunchUrl(url)) {
+                                await launchUrl(
+                                  url,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Não foi possível abrir o Google Maps',
+                                    ),
                                   ),
-                                  label: const Text('Minha localização'),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF0080FF),
-                                    foregroundColor: Colors.white,
-                                  ),
-                                ),
-                              ),
-                          ],
+                                );
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.directions,
+                              size: 18,
+                              color: Colors.white,
+                            ),
+                            label: const Text('Ver Rotas'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF0080FF),
+                              foregroundColor: Colors.white,
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
+              ),
+            ),
           ),
     );
   }
@@ -852,27 +862,24 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         backgroundColor: const Color(0xFF0080FF),
         foregroundColor: Colors.white,
         actions: [
-          // Botão para forçar a atualização da localização
           if (widget.mostrarTodosPostos)
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: _forcarAtualizacaoLocalizacao,
               tooltip: 'Atualizar localização',
             ),
-          // Botão para alternar entre os tipos de mapa
           if (!_mapError)
             IconButton(
               icon: const Icon(Icons.layers),
               onPressed: _changeMapType,
               tooltip: 'Mudar tipo de mapa',
             ),
-          // Botão Home
           IconButton(
             icon: const Icon(Icons.home),
             onPressed: () {
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const HomeScreen()),
-                (route) => false, // Remove todas as rotas anteriores
+                (route) => false,
               );
             },
             tooltip: 'Ir para Home',
@@ -918,10 +925,8 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     );
   }
 
-  // Mudar o tipo do mapa
   void _changeMapType() {
     setState(() {
-      // Alternar entre os tipos de mapa (Normal, Satélite, Terreno, Híbrido)
       if (_currentMapType == MapType.normal) {
         _currentMapType = MapType.satellite;
       } else if (_currentMapType == MapType.satellite) {
@@ -934,7 +939,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     });
   }
 
-  // Construir a visualização em mapa
   Widget _buildMapView() {
     return Stack(
       children: [
@@ -959,13 +963,12 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                   zoom: 13.0,
                 ),
                 markers: _markers,
-                myLocationEnabled: true, // Habilitar a localização real
-                myLocationButtonEnabled: false, // Desabilitar botão nativo para usar o nosso personalizado
+                myLocationEnabled: true,
+                myLocationButtonEnabled: false,
                 mapToolbarEnabled: true,
                 zoomControlsEnabled: true,
                 compassEnabled: true,
-                liteModeEnabled:
-                    false, // Desativar o modo lite para permitir gestos
+                liteModeEnabled: false,
                 mapType: _currentMapType,
                 zoomGesturesEnabled: true,
                 rotateGesturesEnabled: true,
@@ -987,26 +990,21 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
             }
           },
         ),
-
-        // Botão de localização posicionado acima dos controles da câmera
-        if (widget.mostrarTodosPostos || (_userPosition != null && !widget.mostrarTodosPostos))
+        if (widget.mostrarTodosPostos ||
+            (_userPosition != null && !widget.mostrarTodosPostos))
           Positioned(
             right: 10,
-            bottom: 200, // Posicionado bem acima dos controles nativos do Google Maps
+            bottom: 200,
             child: FloatingActionButton.small(
               onPressed: () {
                 if (_userPosition != null && _mapController != null) {
                   _mapController!.animateCamera(
                     CameraUpdate.newLatLngZoom(
-                      LatLng(
-                        _userPosition!.latitude,
-                        _userPosition!.longitude,
-                      ),
+                      LatLng(_userPosition!.latitude, _userPosition!.longitude),
                       14.0,
                     ),
                   );
                 } else {
-                  // Se não temos a localização, tentar obtê-la
                   if (widget.mostrarTodosPostos) {
                     _inicializarMapaComTodosPostos();
                   } else {
@@ -1019,12 +1017,10 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
               child: const Icon(Icons.my_location, color: Colors.white),
             ),
           ),
-
-        // Botões de controle na parte inferior direita
         if (!widget.mostrarTodosPostos)
           Positioned(
             right: 10,
-            bottom: 260, // Posicionado acima do botão de localização
+            bottom: 260,
             child: FloatingActionButton.small(
               onPressed: () {
                 setState(() {
@@ -1039,14 +1035,12 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
               ),
             ),
           ),
-
-        // Card com informações do posto (apenas para posto específico)
         if (!widget.mostrarTodosPostos &&
             widget.nome != null &&
             !_detalhesMinimizados)
           Positioned(
             left: 10,
-            right: 60, // Deixar espaço para os botões à direita
+            right: 60,
             bottom: 10,
             child: Container(
               margin: const EdgeInsets.all(8.0),
@@ -1106,51 +1100,36 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                         alignment: WrapAlignment.spaceEvenly,
                         children: [
                           ElevatedButton.icon(
-                            onPressed: () {
-                              // Zoom para o posto
-                              _mapController?.animateCamera(
-                                CameraUpdate.newLatLngZoom(
-                                  LatLng(widget.latitude!, widget.longitude!),
-                                  18.0,
-                                ),
+                            onPressed: () async {
+                              final url = Uri.parse(
+                                'https://www.google.com/maps/dir/?api=1&destination=${widget.latitude},${widget.longitude}',
                               );
+                              if (await canLaunchUrl(url)) {
+                                await launchUrl(
+                                  url,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Não foi possível abrir o Google Maps',
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                             icon: const Icon(
-                              Icons.local_hospital,
+                              Icons.directions,
                               size: 18,
                               color: Colors.white,
                             ),
-                            label: const Text('Posto'),
+                            label: const Text('Ver Rotas'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF0080FF),
                               foregroundColor: Colors.white,
                             ),
                           ),
-                          if (_userPosition != null)
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                // Zoom para a localização do usuário
-                                _mapController?.animateCamera(
-                                  CameraUpdate.newLatLngZoom(
-                                    LatLng(
-                                      _userPosition!.latitude,
-                                      _userPosition!.longitude,
-                                    ),
-                                    18.0,
-                                  ),
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.my_location,
-                                size: 18,
-                                color: Colors.white,
-                              ),
-                              label: const Text('Minha local.'),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF0080FF),
-                                foregroundColor: Colors.white,
-                              ),
-                            ),
                         ],
                       ),
                     ],
@@ -1163,7 +1142,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     );
   }
 
-  // Força a atualização da localização real
   Future<void> _forcarAtualizacaoLocalizacao() async {
     setState(() {
       _isLoading = true;
@@ -1176,7 +1154,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
     developer.log('==========================================');
 
     try {
-      // Primeiro, verificar permissões
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -1196,7 +1173,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         }
       }
 
-      // Verificar se o serviço está ativado
       bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         developer.log('==========================================');
@@ -1212,7 +1188,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         return;
       }
 
-      // Tentar obter a localização atual com alta precisão
       developer.log(
         'MapaPostoScreen: Obtendo localização com alta precisão (forçado)...',
       );
@@ -1264,7 +1239,6 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         }
       }
 
-      // Se obtiver uma nova posição, atualizar
       if (novaPosition != null) {
         setState(() {
           _userPosition = novaPosition;
@@ -1278,10 +1252,8 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
         );
         developer.log('==========================================');
 
-        // Recarregar postos com a nova localização
         await _carregarPostos();
 
-        // Atualizar a visualização do mapa
         if (_mapController != null) {
           _mapController!.animateCamera(
             CameraUpdate.newLatLngZoom(

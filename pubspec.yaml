@@ -42,6 +42,7 @@ dependencies:
   google_maps_flutter: ^2.5.0  # Para exibir mapas do Google
   google_maps_flutter_android: ^2.5.3  # Para controle específico do Android
   google_maps_flutter_platform_interface: ^2.4.1  # Interface da plataforma para Google Maps
+  url_launcher: ^6.2.4  # Para abrir URLs externas como Google Maps
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/images/hospital_cross.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
