@@ -120,9 +120,17 @@ class _RemedioScreenState extends State<RemedioScreen> {
     );
 
     try {
-      // Buscar os detalhes completos do medicamento usando o ID
+      // Buscar os detalhes completos do medicamento usando o ID (direto da tabela medicamento)
       final medicamentoDetalhes = await ApiService.getMedicamentoById(
         medicamentoId,
+      );
+
+      // Logs para depuração
+      debugPrint(
+        'Detalhes do medicamento: ${medicamentoDetalhes.keys.join(', ')}',
+      );
+      debugPrint(
+        'Tipo do medicamento: "${medicamentoDetalhes['tipoMedicamento']}"',
       );
 
       // Fechar o loading
@@ -130,37 +138,29 @@ class _RemedioScreenState extends State<RemedioScreen> {
 
       // Formatação da data de vencimento
       String dataVencimento = 'Não informada';
-      if (medicamentoDetalhes['dataVencimento'] != null ||
-          medicamentoDetalhes['vencimento'] != null) {
+      if (medicamentoDetalhes['vencimento'] != null) {
         try {
-          final data = DateTime.parse(
-            medicamentoDetalhes['dataVencimento'] ??
-                medicamentoDetalhes['vencimento'],
-          );
+          final data = DateTime.parse(medicamentoDetalhes['vencimento']);
           dataVencimento =
               '${data.day.toString().padLeft(2, '0')}/${data.month.toString().padLeft(2, '0')}/${data.year}';
         } catch (e) {
           dataVencimento =
-              medicamentoDetalhes['dataVencimento']?.toString() ??
-              medicamentoDetalhes['vencimento']?.toString() ??
-              'Não informada';
+              medicamentoDetalhes['vencimento']?.toString() ?? 'Não informada';
         }
       }
 
       // Correção do nome do medicamento
       final nomeMedicamento = _corrigirNomeMedicamento(
-        medicamentoDetalhes['nomeMedicamento'] ??
-            medicamentoDetalhes['produto'] ??
+        medicamentoDetalhes['produto'] ??
             medicamento['nomeMedicamento'] ??
             medicamento['produto'] ??
             'Nome não disponível',
       );
 
-      // Status do checkbox para "necessita receita"
+      // Status para "necessita receita"
       final necessitaReceita =
-          medicamentoDetalhes['necessitaReceita'] ??
-          medicamentoDetalhes['necessita_receita'] ??
-          false;
+          // medicamentoDetalhes['necessita_receita'] ?? false;
+          medicamentoDetalhes['necessitaReceita'] ?? false;
 
       // Exibir o modal com as informações completas
       showDialog(
@@ -207,14 +207,14 @@ class _RemedioScreenState extends State<RemedioScreen> {
                       ),
                     ),
                     Text(
-                      medicamentoDetalhes['tipoMedicamento'] ??
-                          medicamentoDetalhes['tipo'] ??
+                      medicamentoDetalhes['tipo'] ??
+                          medicamentoDetalhes['tipoMedicamento'] ??
                           'Não informado',
                       style: const TextStyle(fontSize: 16),
                     ),
                     const SizedBox(height: 12),
 
-                    // Lote
+                    // // Lote
                     // Text(
                     //   'Lote:',
                     //   style: TextStyle(
@@ -224,9 +224,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                     //   ),
                     // ),
                     // Text(
-                    //   medicamentoDetalhes['loteMedicamento'] ??
-                    //       medicamentoDetalhes['lote'] ??
-                    //       'Não informado',
+                    //   medicamentoDetalhes['lote'] ?? 'Não informado',
                     //   style: const TextStyle(fontSize: 16),
                     // ),
                     // const SizedBox(height: 12),
@@ -243,7 +241,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                     // Text(dataVencimento, style: const TextStyle(fontSize: 16)),
                     // const SizedBox(height: 12),
 
-                    // Necessita receita (checkbox)
+                    // Necessita receita (sem checkbox, com texto colorido)
                     Row(
                       children: [
                         Text(
@@ -255,14 +253,13 @@ class _RemedioScreenState extends State<RemedioScreen> {
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Checkbox(
-                          value: necessitaReceita,
-                          onChanged: null, // Checkbox apenas para visualização
-                          activeColor: Color(0xFF0080FF),
-                        ),
                         Text(
                           necessitaReceita ? 'Sim' : 'Não',
-                          style: const TextStyle(fontSize: 16),
+                          style: TextStyle(
+                            color: necessitaReceita ? Colors.red : Colors.green,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
@@ -275,9 +272,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                   child: Column(
                     children: [
                       // Botão para ver postos disponíveis
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.location_on),
-                        label: const Text('Ver postos disponíveis'),
+                      ElevatedButton(
                         onPressed: () {
                           // Fechar o modal atual
                           Navigator.of(context).pop();
@@ -302,12 +297,11 @@ class _RemedioScreenState extends State<RemedioScreen> {
                             40,
                           ), // Definir um tamanho mínimo para o botão
                         ),
+                        child: const Text('Ver postos disponíveis'),
                       ),
                       const SizedBox(height: 8), // Espaçamento entre os botões
                       // Botão fechar no mesmo estilo
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.close),
-                        label: const Text('Fechar'),
+                      ElevatedButton(
                         onPressed: () => Navigator.of(context).pop(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF0080FF),
@@ -317,6 +311,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                             40,
                           ), // Mesmo tamanho do botão acima
                         ),
+                        child: const Text('Fechar'),
                       ),
                     ],
                   ),
@@ -381,15 +376,14 @@ class _RemedioScreenState extends State<RemedioScreen> {
               ),
               actions: [
                 Center(
-                  child: ElevatedButton.icon(
-                    icon: const Icon(Icons.close),
-                    label: const Text('Fechar'),
+                  child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF0080FF),
                       foregroundColor: Colors.white,
                       minimumSize: const Size(200, 40),
                     ),
+                    child: const Text('Fechar'),
                   ),
                 ),
               ],
