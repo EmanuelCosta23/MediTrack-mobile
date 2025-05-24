@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meditrack/services/api_service.dart';
 import 'mapa_posto_screen.dart';
 import 'home_screen.dart';
+import '../widgets/custom_logo.dart';
 
 class DetalhePosto extends StatefulWidget {
   final String nome;
@@ -214,7 +215,35 @@ class _DetalhePostoState extends State<DetalhePosto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MediTrack', style: TextStyle(color: Colors.white)),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const MediTrackLogo(size: 28),
+            const SizedBox(width: 8),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Medi',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Track',
+                    style: TextStyle(
+                      color: Color(0xFF40BFFF),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFF0080FF),
         foregroundColor: Colors.white,

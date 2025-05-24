@@ -728,7 +728,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF0080FF),
+                            color: Color(0xFF40BFFF),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -783,7 +783,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                                 ),
                                 label: const Text('Ver no mapa'),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF0080FF),
+                                  backgroundColor: const Color(0xFF40BFFF),
                                   foregroundColor: Colors.white,
                                 ),
                               ),
@@ -811,7 +811,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                                   ),
                                   label: const Text('Minha localização'),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF0080FF),
+                                    backgroundColor: const Color(0xFF40BFFF),
                                     foregroundColor: Colors.white,
                                   ),
                                 ),
@@ -832,7 +832,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: const Color(0xFF0080FF), size: 20),
+          Icon(icon, color: const Color(0xFF40BFFF), size: 20),
           const SizedBox(width: 10),
           Expanded(child: Text(text, style: const TextStyle(fontSize: 15))),
         ],
@@ -906,7 +906,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                               ? _carregarPostos
                               : _adicionarMarcadorPostoEspecifico,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF0080FF),
+                        backgroundColor: const Color(0xFF40BFFF),
                         foregroundColor: Colors.white,
                       ),
                       child: const Text('Tentar novamente'),
@@ -927,7 +927,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                         _mapController!.animateCamera(CameraUpdate.zoomIn());
                       }
                     },
-                    backgroundColor: const Color(0xFF0080FF),
+                    backgroundColor: const Color(0xFF40BFFF),
                     heroTag: 'zoom_in',
                     child: const Icon(Icons.add, color: Colors.white),
                   ),
@@ -938,7 +938,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                         _mapController!.animateCamera(CameraUpdate.zoomOut());
                       }
                     },
-                    backgroundColor: const Color(0xFF0080FF),
+                    backgroundColor: const Color(0xFF40BFFF),
                     heroTag: 'zoom_out',
                     child: const Icon(Icons.remove, color: Colors.white),
                   ),
@@ -960,7 +960,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                         _inicializarMapaComTodosPostos();
                       }
                     },
-                    backgroundColor: const Color(0xFF0080FF),
+                    backgroundColor: const Color(0xFF40BFFF),
                     heroTag: 'my_location',
                     child: const Icon(Icons.my_location, color: Colors.white),
                   ),
@@ -1055,7 +1055,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                       _detalhesMinimizados = !_detalhesMinimizados;
                     });
                   },
-                  backgroundColor: const Color(0xFF0080FF),
+                  backgroundColor: const Color(0xFF40BFFF),
                   heroTag: 'toggle_details',
                   child: Icon(
                     _detalhesMinimizados ? Icons.info : Icons.info_outline,
@@ -1070,7 +1070,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                       _mapController!.animateCamera(CameraUpdate.zoomIn());
                     }
                   },
-                  backgroundColor: const Color(0xFF0080FF),
+                  backgroundColor: const Color(0xFF40BFFF),
                   heroTag: 'zoom_in_specific',
                   child: const Icon(Icons.add, color: Colors.white),
                 ),
@@ -1082,7 +1082,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                       _mapController!.animateCamera(CameraUpdate.zoomOut());
                     }
                   },
-                  backgroundColor: const Color(0xFF0080FF),
+                  backgroundColor: const Color(0xFF40BFFF),
                   heroTag: 'zoom_out_specific',
                   child: const Icon(Icons.remove, color: Colors.white),
                 ),
@@ -1135,7 +1135,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                             const Icon(
                               Icons.location_on,
                               size: 16,
-                              color: Color(0xFF0080FF),
+                              color: Color(0xFF40BFFF),
                             ),
                             const SizedBox(width: 4),
                             Text(
@@ -1172,7 +1172,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                             ),
                             label: const Text('Posto'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF0080FF),
+                              backgroundColor: const Color(0xFF40BFFF),
                               foregroundColor: Colors.white,
                             ),
                           ),
@@ -1197,7 +1197,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                               ),
                               label: const Text('Minha local.'),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF0080FF),
+                                backgroundColor: const Color(0xFF40BFFF),
                                 foregroundColor: Colors.white,
                               ),
                             ),

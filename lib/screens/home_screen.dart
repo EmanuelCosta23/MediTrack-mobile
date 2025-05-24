@@ -371,7 +371,28 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             const MediTrackLogo(size: 28),
             const SizedBox(width: 8),
-            const Text('MediTrack'),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Medi',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20, // ajuste se quiser maior/menor
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Track',
+                    style: TextStyle(
+                      color: Color(0xFF40BFFF),
+                      fontSize: 20, // ajuste se quiser igual ao anterior
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
         backgroundColor: const Color(0xFF0080FF),
@@ -388,7 +409,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const Sidebar(),
       body: Container(
-        color: const Color(0xFF0080FF),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF0080FF), // Azul mais escuro no topo
+              Color(0xFF40BFFF), // Azul mais claro embaixo
+            ],
+          ),
+        ),
         height: double.infinity,
         child:
             _isLoading
@@ -625,7 +655,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xFF0080FF),
+                    backgroundColor: const Color(0xFF40BFFF), // Cor botão Ver Detalhe
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
