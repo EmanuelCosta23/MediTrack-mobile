@@ -115,7 +115,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
       barrierDismissible: false,
       builder:
           (context) => const Center(
-            child: CircularProgressIndicator(color: Color(0xFF0080FF)),
+            child: CircularProgressIndicator(color: Color(0xFF40BFFF)),
           ),
     );
 
@@ -170,7 +170,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
               title: Text(
                 'Detalhes do Medicamento',
                 style: TextStyle(
-                  color: Color(0xFF0080FF),
+                  color: Color(0xFF40BFFF),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -290,7 +290,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                           );
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF0080FF),
+                          backgroundColor: const Color(0xFF40BFFF),
                           foregroundColor: Colors.white,
                           minimumSize: const Size(
                             200,
@@ -304,7 +304,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                       ElevatedButton(
                         onPressed: () => Navigator.of(context).pop(),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF0080FF),
+                          backgroundColor: const Color(0xFF40BFFF),
                           foregroundColor: Colors.white,
                           minimumSize: const Size(
                             200,
@@ -340,7 +340,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
               title: Text(
                 'Informações Básicas',
                 style: TextStyle(
-                  color: Color(0xFF0080FF),
+                  color: Color(0xFF40BFFF),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -379,7 +379,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0080FF),
+                      backgroundColor: const Color(0xFF40BFFF),
                       foregroundColor: Colors.white,
                       minimumSize: const Size(200, 40),
                     ),
@@ -428,14 +428,14 @@ class _RemedioScreenState extends State<RemedioScreen> {
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: 'Pesquisar medicamentos...',
-                prefixIcon: const Icon(Icons.search, color: Color(0xFF0080FF)),
+                prefixIcon: const Icon(Icons.search, color: Color(0xFF40BFFF)),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                   borderSide: BorderSide(color: Colors.grey[300]!),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Color(0xFF0080FF)),
+                  borderSide: const BorderSide(color: Color(0xFF40BFFF)),
                 ),
                 filled: true,
                 fillColor: Colors.white,
@@ -459,7 +459,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                 _isLoading
                     ? const Center(
                       child: CircularProgressIndicator(
-                        color: Color(0xFF0080FF),
+                        color: Color(0xFF40BFFF),
                       ),
                     )
                     : _erro.isNotEmpty
@@ -476,7 +476,7 @@ class _RemedioScreenState extends State<RemedioScreen> {
                           ElevatedButton(
                             onPressed: _carregarMedicamentos,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF0080FF),
+                              backgroundColor: const Color(0xFF40BFFF),
                               foregroundColor: Colors.white,
                             ),
                             child: const Text('Tentar novamente'),
@@ -504,8 +504,8 @@ class _RemedioScreenState extends State<RemedioScreen> {
                               _mostrarDetalhesMedicamento(medicamento);
                             },
                             borderRadius: BorderRadius.circular(4),
-                            splashColor: Color(0xFF0080FF).withOpacity(0.1),
-                            highlightColor: Color(0xFF0080FF).withOpacity(0.05),
+                            splashColor: Color(0xFF40BFFF).withOpacity(0.1),
+                            highlightColor: Color(0xFF40BFFF).withOpacity(0.05),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 12.0,
@@ -519,13 +519,13 @@ class _RemedioScreenState extends State<RemedioScreen> {
                                     height: 32,
                                     decoration: BoxDecoration(
                                       color: const Color(
-                                        0xFF0080FF,
+                                        0xFF40BFFF,
                                       ).withOpacity(0.1),
                                       borderRadius: BorderRadius.circular(6),
                                     ),
                                     child: const Icon(
                                       Icons.medication,
-                                      color: Color(0xFF0080FF),
+                                      color: Color(0xFF40BFFF),
                                       size: 18,
                                     ),
                                   ),

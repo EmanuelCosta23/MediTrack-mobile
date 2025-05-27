@@ -3,6 +3,7 @@ import 'package:meditrack/services/api_service.dart';
 import 'mapa_posto_screen.dart';
 import 'home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../widgets/custom_logo.dart';
 
 class DetalhePosto extends StatefulWidget {
   final String nome;
@@ -250,7 +251,35 @@ class _DetalhePostoState extends State<DetalhePosto> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MediTrack', style: TextStyle(color: Colors.white)),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const MediTrackLogo(size: 28),
+            const SizedBox(width: 8),
+            RichText(
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Medi',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Track',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF40BFFF),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
         centerTitle: true,
         backgroundColor: const Color(0xFF0080FF),
         foregroundColor: Colors.white,
@@ -288,7 +317,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                     ElevatedButton(
                       onPressed: _carregarDadosPosto,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF0080FF),
+                        backgroundColor: const Color(0xFF40BFFF),
                         foregroundColor: Colors.white,
                       ),
                       child: const Text('Tentar novamente'),
@@ -302,7 +331,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16.0),
-                    color: const Color(0xFF0080FF),
+                    color: const Color(0xFF40BFFF),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -393,7 +422,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                                       content: Text(
                                         'Não foi possível obter as coordenadas do posto',
                                       ),
-                                      backgroundColor: Color(0xFF0080FF),
+                                      backgroundColor: Color(0xFF40BFFF),
                                     ),
                                   );
                                 }
@@ -419,7 +448,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                                     const Text(
                                       'Ver no mapa',
                                       style: TextStyle(
-                                        color: Color(0xFF0080FF),
+                                        color: Color(0xFF40BFFF),
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -495,7 +524,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                         hintText: 'Pesquisar medicamentos...',
                         prefixIcon: const Icon(
                           Icons.search,
-                          color: Color(0xFF0080FF),
+                          color: Color(0xFF40BFFF),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -504,7 +533,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(30),
                           borderSide: const BorderSide(
-                            color: Color(0xFF0080FF),
+                            color: Color(0xFF40BFFF),
                           ),
                         ),
                         filled: true,
@@ -782,7 +811,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
               title: Text(
                 'Detalhes do Medicamento',
                 style: TextStyle(
-                  color: Color(0xFF0080FF),
+                  color: Color(0xFF40BFFF),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -953,7 +982,7 @@ class DetalhePostoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes do Posto'),
-        backgroundColor: const Color(0xFF0080FF),
+        backgroundColor: const Color(0xFF40BFFF),
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -967,7 +996,7 @@ class DetalhePostoScreen extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF0080FF),
+                color: Color(0xFF40BFFF),
               ),
             ),
             const SizedBox(height: 24),
@@ -1019,7 +1048,7 @@ class DetalhePostoScreen extends StatelessWidget {
                 icon: const Icon(Icons.directions, color: Colors.white),
                 label: const Text('Ver Rotas no Google Maps'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF0080FF),
+                  backgroundColor: const Color(0xFF40BFFF),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
@@ -1037,14 +1066,14 @@ class DetalhePostoScreen extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(icon, color: const Color(0xFF0080FF), size: 20),
+            Icon(icon, color: const Color(0xFF40BFFF), size: 20),
             const SizedBox(width: 8),
             Text(
               title,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF0080FF),
+                color: Color(0xFF40BFFF),
               ),
             ),
           ],

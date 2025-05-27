@@ -284,13 +284,13 @@ class _PostosComMedicamentoScreenState
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: 'Pesquisar postos...',
-                prefixIcon: const Icon(Icons.search, color: Color(0xFF0080FF)),
+                prefixIcon: const Icon(Icons.search, color: Color(0xFF40BFFF)),
                 suffixIcon:
                     _searchController.text.isNotEmpty
                         ? IconButton(
                           icon: const Icon(
                             Icons.clear,
-                            color: Color(0xFF0080FF),
+                            color: Color(0xFF40BFFF),
                           ),
                           onPressed: () {
                             _searchController.clear();
@@ -307,7 +307,7 @@ class _PostosComMedicamentoScreenState
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
-                  borderSide: const BorderSide(color: Color(0xFF0080FF)),
+                  borderSide: const BorderSide(color: Color(0xFF40BFFF)),
                 ),
                 filled: true,
                 fillColor: Colors.white,
@@ -337,7 +337,7 @@ class _PostosComMedicamentoScreenState
                     });
                     _aplicarFiltros();
                   },
-                  selectedColor: const Color(0xFF0080FF).withOpacity(0.3),
+                  selectedColor: const Color(0xFF40BFFF).withOpacity(0.3),
                 ),
                 const SizedBox(width: 10),
                 ChoiceChip(
@@ -349,7 +349,7 @@ class _PostosComMedicamentoScreenState
                     });
                     _aplicarFiltros();
                   },
-                  selectedColor: const Color(0xFF0080FF).withOpacity(0.3),
+                  selectedColor: const Color(0xFF40BFFF).withOpacity(0.3),
                 ),
               ],
             ),
@@ -361,7 +361,7 @@ class _PostosComMedicamentoScreenState
                 _isLoading
                     ? const Center(
                       child: CircularProgressIndicator(
-                        color: Color(0xFF0080FF),
+                        color: Color(0xFF40BFFF),
                       ),
                     )
                     : _erro.isNotEmpty
@@ -380,7 +380,7 @@ class _PostosComMedicamentoScreenState
                           ElevatedButton(
                             onPressed: _carregarPostos,
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF0080FF),
+                              backgroundColor: const Color(0xFF40BFFF),
                               foregroundColor: Colors.white,
                             ),
                             child: const Text('Tentar novamente'),
@@ -398,7 +398,7 @@ class _PostosComMedicamentoScreenState
                     )
                     : RefreshIndicator(
                       onRefresh: _carregarPostos,
-                      color: const Color(0xFF0080FF),
+                      color: const Color(0xFF40BFFF),
                       child: ListView.builder(
                         padding: const EdgeInsets.all(16.0),
                         itemCount: _postosFiltrados.length,
@@ -505,7 +505,7 @@ class _PostosComMedicamentoScreenState
                                         const Icon(
                                           Icons.location_on,
                                           size: 16,
-                                          color: Color(0xFF0080FF),
+                                          color: Color(0xFF40BFFF),
                                         ),
                                         const SizedBox(width: 4),
                                         Text(
@@ -601,7 +601,7 @@ class _PostosComMedicamentoScreenState
                                           ),
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: const Color(
-                                              0xFF0080FF,
+                                              0xFF40BFFF,
                                             ),
                                             foregroundColor: Colors.white,
                                             padding: const EdgeInsets.symmetric(
