@@ -272,7 +272,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF40BFFF),
+                      color: Color(0xFF4CD2DC),  // cor turquesa como no login 
                     ),
                   ),
                 ],
@@ -331,7 +331,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16.0),
-                    color: const Color(0xFF40BFFF),
+                    color: const Color(0xFF0080FF),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [

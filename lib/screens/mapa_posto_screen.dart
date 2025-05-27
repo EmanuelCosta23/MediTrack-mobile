@@ -786,7 +786,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                             ),
                             label: const Text('Ver detalhes'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF40BFFF),
+                              backgroundColor: const Color(0xFF4CD2DC),
                               foregroundColor: Colors.white,
                             ),
                           ),
@@ -821,7 +821,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                             ),
                             label: const Text('Ver Rotas'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF40BFFF),
+                              backgroundColor: const Color(0xFF4CD2DC),
                               foregroundColor: Colors.white,
                             ),
                           ),
@@ -913,7 +913,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                               ? _carregarPostos
                               : _adicionarMarcadorPostoEspecifico,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF40BFFF),
+                        backgroundColor: const Color(0xFF4CD2DC),
                         foregroundColor: Colors.white,
                       ),
                       child: const Text('Tentar novamente'),
@@ -1012,7 +1012,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                   }
                 }
               },
-              backgroundColor: const Color(0xFF40BFFF),
+              backgroundColor: const Color(0xFF4CD2DC),
               heroTag: 'my_location',
               child: const Icon(Icons.my_location, color: Colors.white),
             ),
@@ -1027,7 +1027,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                   _detalhesMinimizados = !_detalhesMinimizados;
                 });
               },
-              backgroundColor: const Color(0xFF40BFFF),
+              backgroundColor: const Color(0xFF4CD2DC),
               heroTag: 'toggle_details',
               child: Icon(
                 _detalhesMinimizados ? Icons.info : Icons.info_outline,
@@ -1126,7 +1126,7 @@ class _MapaPostoScreenState extends State<MapaPostoScreen> {
                             ),
                             label: const Text('Ver Rotas'),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF40BFFF),
+                              backgroundColor: const Color(0xFF4CD2DC),
                               foregroundColor: Colors.white,
                             ),
                           ),
