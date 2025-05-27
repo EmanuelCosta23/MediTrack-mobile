@@ -371,7 +371,28 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             const MediTrackLogo(size: 28),
             const SizedBox(width: 8),
-            const Text('MediTrack'),
+            RichText(
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Medi',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Track',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF40BFFF),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
         backgroundColor: const Color(0xFF0080FF),
@@ -388,7 +409,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: const Sidebar(),
       body: Container(
-        color: const Color(0xFF0080FF),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFF0080FF), // Azul mais escuro no topo
+              Color(0xFF40BFFF), // Azul mais claro embaixo
+            ],
+          ),
+        ),
         height: double.infinity,
         child:
             _isLoading
@@ -410,7 +440,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: _carregarPostosProximos,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xFF0080FF),
+                          foregroundColor: const Color(0xFF40BFFF),
                         ),
                         child: const Text('Tentar novamente'),
                       ),
@@ -573,7 +603,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             const Icon(
               Icons.local_hospital,
-              color: Color(0xFF0080FF),
+              color: Color(0xFF40BFFF),
               size: 32,
             ),
             const SizedBox(height: 8),
@@ -625,7 +655,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xFF0080FF),
+                    backgroundColor: const Color(0xFF40BFFF),
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
