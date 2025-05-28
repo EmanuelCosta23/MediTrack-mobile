@@ -172,7 +172,8 @@ class _VacinaScreenState extends State<VacinaScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vacinas', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFF0080FF),
+        // backgroundColor: const Color(0xFF0080FF),
+        backgroundColor: const Color(0xFF40BFFF),
         foregroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.white),
         automaticallyImplyLeading: true,

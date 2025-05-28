@@ -27,9 +27,10 @@ class ForgotPasswordScreen extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF0080FF),  // Azul mais escuro no topo
-              Color(0xFF40BFFF),  // Azul mais claro embaixo
+              Color(0xFF40BFFF), // Azul mais claro no topo
+              Color(0xFF0080FF), // Azul mais escuro embaixo
             ],
+            stops: [0.7, 1.0],
           ),
         ),
         child: SafeArea(
@@ -37,9 +38,14 @@ class ForgotPasswordScreen extends StatelessWidget {
             child: Container(
               width: double.infinity,
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+                minHeight:
+                    MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top,
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 10.0,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -66,7 +72,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 48,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF40BFFF),
+                                color: Color(0xFF0080FF),
                               ),
                             ),
                           ],
@@ -109,12 +115,17 @@ class ForgotPasswordScreen extends StatelessWidget {
                         TextField(
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
                             ),
-                            prefixIcon: const Icon(Icons.email, color: Color(0xFF0080FF)),
+                            prefixIcon: const Icon(
+                              Icons.email,
+                              color: Color(0xFF0080FF),
+                            ),
                             fillColor: Colors.white,
                             filled: true,
                             contentPadding: const EdgeInsets.symmetric(
@@ -127,7 +138,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  
+
                   const SizedBox(height: 30),
 
                   // Send Code Button
@@ -154,7 +165,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                     ),
                     child: const Text(
                       'Enviar Código',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),

@@ -258,7 +258,8 @@ class _PostosComMedicamentoScreenState
     return Scaffold(
       appBar: AppBar(
         title: Text('Postos com ${widget.nomeMedicamento}'),
-        backgroundColor: const Color(0xFF0080FF),
+        // backgroundColor: const Color(0xFF0080FF),
+        backgroundColor: const Color(0xFF40BFFF),
         foregroundColor: Colors.white,
         centerTitle: true,
         actions: [

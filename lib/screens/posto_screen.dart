@@ -125,7 +125,8 @@ class _PostoScreenState extends State<PostoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Postos de Saúde'),
-        backgroundColor: const Color(0xFF0080FF),
+        // backgroundColor: const Color(0xFF0080FF),
+        backgroundColor: const Color(0xFF40BFFF),
         foregroundColor: Colors.white,
         centerTitle: true,
         actions: [

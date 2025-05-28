@@ -387,7 +387,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF4CD2DC), //cor turquesa como no login 
+                      // color: Color(0xFF4CD2DC), //cor turquesa como no login
+                      color: Color(0xFF0080FF), //cor azul escuro
                     ),
                   ),
                 ],
@@ -395,7 +396,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        backgroundColor: const Color(0xFF0080FF),
+        // backgroundColor: const Color(0xFF0080FF),
+        backgroundColor: const Color(0xFF40BFFF),
         foregroundColor: Colors.white,
         centerTitle: true,
         actions: [
@@ -414,7 +416,8 @@ class _HomeScreenState extends State<HomeScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF0080FF), // Azul mais escuro no topo
+              // Color(0xFF0080FF), // Azul mais escuro no topo
+              Color(0xFF40BFFF), // Azul mais escuro no topo
               Color(0xFF40BFFF), // Azul mais claro embaixo
             ],
           ),

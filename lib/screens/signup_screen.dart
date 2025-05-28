@@ -371,9 +371,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF0080FF),  // Azul mais escuro no topo
-              Color(0xFF40BFFF),  // Azul mais claro embaixo
+              Color(0xFF40BFFF), // Azul mais claro no topo
+              Color(0xFF0080FF), // Azul mais escuro embaixo
             ],
+            stops: [0.7, 1.0],
           ),
         ),
         child: SafeArea(
@@ -381,7 +382,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Container(
               width: double.infinity,
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+                minHeight:
+                    MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top,
               ),
               padding: const EdgeInsets.symmetric(
                 horizontal: 20.0,
@@ -416,7 +419,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               style: TextStyle(
                                 fontSize: 48,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF4CD2DC), // cor turquesa similar à imagem
+                                color: Color(
+                                  0xFF0080FF,
+                                ), // cor turquesa similar à imagem
                               ),
                             ),
                           ],
@@ -452,7 +457,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _nomeController,
                           decoration: InputDecoration(
                             labelText: 'Nome Completo',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
@@ -482,7 +489,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _cpfVisualController,
                           decoration: InputDecoration(
                             labelText: 'CPF',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
@@ -513,7 +522,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _dataVisualController,
                           decoration: InputDecoration(
                             labelText: 'Data de Nascimento',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
@@ -544,7 +555,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _emailController,
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
@@ -574,7 +587,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _senhaController,
                           decoration: InputDecoration(
                             labelText: 'Senha',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
@@ -604,7 +619,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           controller: _confirmarSenhaController,
                           decoration: InputDecoration(
                             labelText: 'Confirmar Senha',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
@@ -637,7 +654,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     onPressed: _cadastrarUsuario,
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: const Color(0xFF4CD2DC), // mesma cor do "Track"
+                      backgroundColor: const Color(
+                        0xFF4CD2DC,
+                      ), // mesma cor do "Track"
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       elevation: 3,
                       shadowColor: Colors.black.withOpacity(0.3),
@@ -647,7 +666,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     child: const Text(
                       'Cadastrar',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
 
