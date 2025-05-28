@@ -272,7 +272,8 @@ class _DetalhePostoState extends State<DetalhePosto> {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF4CD2DC),  // cor turquesa como no login 
+                      // color: Color(0xFF4CD2DC),  // cor turquesa como no login
+                      color: Color(0xFF0080FF), // cor azul escuro
                     ),
                   ),
                 ],
@@ -281,7 +282,8 @@ class _DetalhePostoState extends State<DetalhePosto> {
           ],
         ),
         centerTitle: true,
-        backgroundColor: const Color(0xFF0080FF),
+        // backgroundColor: const Color(0xFF0080FF), // cor azul escuro
+        backgroundColor: const Color(0xFF40BFFF), // cor turquesa como no login
         foregroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.white),
         actions: [
@@ -331,7 +333,8 @@ class _DetalhePostoState extends State<DetalhePosto> {
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16.0),
-                    color: const Color(0xFF0080FF),
+                    // color: const Color(0xFF0080FF),
+                    color: const Color(0xFF40BFFF),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -441,14 +444,16 @@ class _DetalhePostoState extends State<DetalhePosto> {
                                   children: [
                                     const Icon(
                                       Icons.map_outlined,
-                                      color: Color(0xFF40BFFF),
+                                      // color: Color(0xFF40BFFF),
+                                      color: Color(0xFF0080FF),
                                       size: 16,
                                     ),
                                     const SizedBox(width: 4),
                                     const Text(
                                       'Ver no mapa',
                                       style: TextStyle(
-                                        color: Color(0xFF40BFFF),
+                                        // color: Color(0xFF40BFFF),
+                                        color: Color(0xFF0080FF),
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                       ),

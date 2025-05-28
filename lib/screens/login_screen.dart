@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../services/auth_service.dart';
-import '../widgets/phone_illustration.dart';  // Importando novamente o widget de ilustração
+import '../widgets/phone_illustration.dart'; // Importando novamente o widget de ilustração
 import '../widgets/custom_logo.dart'; // Importando a nova logo personalizada
 
 class LoginScreen extends StatefulWidget {
@@ -96,9 +96,10 @@ class _LoginScreenState extends State<LoginScreen> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF0080FF),  // Azul mais escuro no topo
-              Color(0xFF40BFFF),  // Azul mais claro embaixo
+              Color(0xFF40BFFF), // Azul mais claro embaixo
+              Color(0xFF0080FF), // Azul mais escuro no topo
             ],
+            stops: [0.7, 1.0],
           ),
         ),
         child: SafeArea(
@@ -106,7 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Container(
               width: double.infinity,
               constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+                minHeight:
+                    MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).padding.top,
               ),
               padding: const EdgeInsets.symmetric(
                 horizontal: 24.0,
@@ -117,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 40),
-                  
+
                   // Logo e título "MediTrack"
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       // Nova logo redesenhada com cores brancas para destacar
                       const MediTrackLogo(size: 56),
                       const SizedBox(width: 12),
-                      
+
                       // Título com "Medi" em cor diferente
                       RichText(
                         text: const TextSpan(
@@ -143,7 +146,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(
                                 fontSize: 48,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF4CD2DC), // cor turquesa similar à imagem
+                                color: Color(
+                                  0xFF0080FF,
+                                ), // cor turquesa similar à imagem
                               ),
                             ),
                           ],
@@ -151,31 +156,26 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 14),
-                  
+
                   // Subtítulo
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       'Acesse ou crie sua conta para encontrar todos seus remédios!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  
+
                   const SizedBox(height: 30),
-                  
+
                   // Ilustração do telefone - voltando para a versão personalizada
-                  Center(
-                    child: PhoneIllustration(size: 220),
-                  ),
-                  
+                  Center(child: PhoneIllustration(size: 220)),
+
                   const SizedBox(height: 40),
-                  
+
                   // Área do formulário com fundo branco semitransparente
                   Container(
                     decoration: BoxDecoration(
@@ -192,7 +192,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: 'Digite seu e-mail',
                             hintStyle: TextStyle(color: Colors.grey[400]),
                             labelText: 'Email',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
@@ -217,7 +219,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onChanged: (_) => _limparErros(),
                         ),
                         const SizedBox(height: 15),
-                
+
                         // Password TextField
                         TextField(
                           controller: _senhaController,
@@ -225,7 +227,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             hintText: 'Digite sua senha',
                             hintStyle: TextStyle(color: Colors.grey[400]),
                             labelText: 'Senha',
-                            labelStyle: const TextStyle(color: Color(0xFF0080FF)),
+                            labelStyle: const TextStyle(
+                              color: Color(0xFF0080FF),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30.0),
                               borderSide: BorderSide.none,
@@ -249,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           obscureText: true,
                           onChanged: (_) => _limparErros(),
                         ),
-                        
+
                         // Esqueci a senha (alinhado à direita)
                         Align(
                           alignment: Alignment.centerRight,
@@ -266,9 +270,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  
+
                   const SizedBox(height: 25),
-                
+
                   // Login Button
                   isLoading
                       ? const Center(
@@ -278,7 +282,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: _login,
                         style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.white,
-                          backgroundColor: Color(0xFF4CD2DC), // mesma cor do "Track"
+                          backgroundColor: Color(
+                            0xFF4CD2DC,
+                          ), // mesma cor do "Track"
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           elevation: 3,
                           shadowColor: Colors.black.withOpacity(0.3),
@@ -294,9 +300,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      
+
                   const SizedBox(height: 15),
-                  
+
                   // Link para cadastro
                   Center(
                     child: TextButton(
