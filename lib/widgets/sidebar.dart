@@ -12,7 +12,7 @@ class Sidebar extends StatelessWidget {
       child: Column(
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: Color(0xFF0080FF)),
+            decoration: const BoxDecoration(color: Color(0xFF40BFFF)),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
