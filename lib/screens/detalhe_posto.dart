@@ -441,7 +441,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                                   children: [
                                     const Icon(
                                       Icons.map_outlined,
-                                      color: Color(0xFF0080FF),
+                                      color: Color(0xFF40BFFF),
                                       size: 16,
                                     ),
                                     const SizedBox(width: 4),
@@ -811,7 +811,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
               title: Text(
                 'Detalhes do Medicamento',
                 style: TextStyle(
-                  color: Color(0xFF40BFFF),
+                  color: Color(0xFF4CD2DC),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -934,7 +934,7 @@ class _DetalhePostoState extends State<DetalhePosto> {
                   child: ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0080FF),
+                      backgroundColor: const Color(0xFF4CD2DC),
                       foregroundColor: Colors.white,
                       minimumSize: const Size(200, 40),
                     ),
@@ -982,7 +982,7 @@ class DetalhePostoScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes do Posto'),
-        backgroundColor: const Color(0xFF40BFFF),
+        backgroundColor: const Color(0xFF4CD2DC),
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -1048,7 +1048,7 @@ class DetalhePostoScreen extends StatelessWidget {
                 icon: const Icon(Icons.directions, color: Colors.white),
                 label: const Text('Ver Rotas no Google Maps'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF40BFFF),
+                  backgroundColor: const Color(0xFF4CD2DC),
                   foregroundColor: Colors.white,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),

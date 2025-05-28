@@ -655,7 +655,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xFF4CD2DC), //cor turquesa como no login 
+                    backgroundColor: const Color(0xFF4CD2DC),
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
